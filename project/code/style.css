@@ -1,0 +1,37 @@
+@font-face {
+    font-family: allerta;
+    src: url('fonts/AllertaStencil-Regular.ttf');
+}
+@font-face {
+    font-family: wt;
+    src: url(fonts/Amarurgt.ttf);
+}
+
+h2, h3, h4, h1 {
+    font-family: allerta;
+    color: white;
+    -webkit-text-stroke: 5px gray;
+    margin: 0;
+    padding: -3vh;
+}
+
+h1{
+    font-size: 20vh;
+    font-family: wt;
+}
+h2{
+    font-size: 15vh;
+}
+h3{
+    font-size: 12vh;
+}
+h4{
+    font-size: 10vh;
+}
+#background {
+    position: absolute;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+
+}
