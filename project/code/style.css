@@ -7,10 +7,17 @@
     src: url(fonts/Amarurgt.ttf);
 }
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
 h2, h3, h4, h1 {
     font-family: allerta;
     color: white;
-    -webkit-text-stroke: 5px gray;
+    -webkit-text-stroke: 2px gray;
     margin: 0;
     padding: -3vh;
 }
@@ -18,15 +25,16 @@ h2, h3, h4, h1 {
 h1{
     font-size: 20vh;
     font-family: wt;
+    margin-bottom: -5vh;
 }
 h2{
-    font-size: 15vh;
+    font-size: 10vh;
 }
 h3{
-    font-size: 12vh;
+    font-size: 7vh;
 }
 h4{
-    font-size: 10vh;
+    font-size: 5vh;
 }
 #background {
     position: absolute;
@@ -34,4 +42,27 @@ h4{
     width: 100%;
     height: 100%;
 
+}
+
+#content {
+    position: absolute;
+    width: 100%;
+    display: grid;
+    height: 20vh;
+    top: 80vh;
+    grid-template-columns: auto auto auto;
+}
+#contentbox {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#title {
+    margin-top: 5vh;
+    position: absolute;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
