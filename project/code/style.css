@@ -141,12 +141,15 @@ h4{
     }
 }
 
-#russia, #germany, #amerika, #sweden{
+.country{
     width: 55vw;
     height: 70vh;
     position: absolute;
     top: 15vh;
     left: 22.5vw;
+    background-color: rgba(133, 133, 133, 0.507);
+    border-radius: 5px;
+
 }
 
 #russia {
@@ -161,4 +164,18 @@ h4{
 #sweden{
     left: 322.5vw;
 }
-
+#flag{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 30%;
+}
+img{
+    width: 100%;
+}
+#jetpreview{
+    position: absolute;
+    left: 30%;
+    width: 70%;
+    padding: 5%;
+}

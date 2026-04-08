@@ -63,8 +63,6 @@ function rightarrow() {
     el.style.transition = "transform 0.5s ease";
     el.style.transform = `translateX(${currentOffset}vw)`;
   });
-}else{
-    console.log("error")
 }
 }
 
@@ -75,7 +73,5 @@ function leftarrow() {
     el.style.transition = "transform 0.5s ease";
     el.style.transform = `translateX(${currentOffset}vw)`;
   });
-}else{
-    console.log("error")
 }
 }
