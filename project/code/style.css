@@ -12,12 +12,13 @@
     padding: 0;
     box-sizing: border-box;
     overflow: hidden;
+    user-select: none;
 }
 
 h2, h3, h4, h1 {
     font-family: allerta;
     color: white;
-    -webkit-text-stroke: 2px gray;
+    -webkit-text-stroke: 1px gray;
     margin: 0;
     padding: -3vh;
 }
@@ -31,32 +32,45 @@ h2{
     font-size: 10vh;
 }
 h3{
-    font-size: 7vh;
+    font-size: 12vh;
 }
 h4{
     font-size: 5vh;
 }
 #background {
     position: absolute;
-    background-size: cover;
-    width: 100%;
+    
     height: 100%;
-
+    z-index: 0;
+}
+#tobattle {
+    position: absolute;
+    left: 30vw;
+    right: 30vw;
+    width: 40vw;
+    text-align: center;
+    top: 70vh;
 }
 
 #content {
     position: absolute;
     width: 100%;
     display: grid;
+    
     height: 20vh;
     top: 80vh;
-    grid-template-columns: auto auto auto;
+    grid-template-columns: 40vw 40vw;
+    gap: 20vw;
 }
 #contentbox {
     text-align: center;
     display: flex;
     align-items: center;
     justify-content: center;
+
+    
+    transition: 0.5s ease;
+    border-radius: 25px;
 }
 #title {
     margin-top: 5vh;
@@ -65,4 +79,30 @@ h4{
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+#contentbox:hover{
+    scale: 1.1;
+}
+
+#arrowleft{
+    width: 15vw;
+    height: 10vh;
+    background-image: url(imgs/AIM-9MArrow.webp);
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+#arrowright{
+    width: 15vw;
+    height: 10vh;
+    background-image: url(imgs/AIM-9MArrowRight.png);
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+#main{
+    width: 100vw;
+    height: 100vh;
+    background-image: url(imgs/backgroundsky.png);
+    background-repeat: repeat;
+    background-size: 400%;
+
 }
