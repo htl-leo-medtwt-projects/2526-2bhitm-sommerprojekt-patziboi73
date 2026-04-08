@@ -90,6 +90,11 @@ h4{
     background-image: url(imgs/AIM-9MArrow.webp);
     background-size: 100%;
     background-repeat: no-repeat;
+    position: absolute;
+    top: 45vh;
+    left: 5vw;
+    background-position: center;
+    transition: 1s ease;
 }
 #arrowright{
     width: 15vw;
@@ -97,6 +102,11 @@ h4{
     background-image: url(imgs/AIM-9MArrowRight.png);
     background-size: 100%;
     background-repeat: no-repeat;
+    position: absolute;
+    background-position: center;
+    top: 45vh;
+    left: 80vw;
+    transition: 1s ease;
 }
 #main{
     width: 100vw;
@@ -106,3 +116,49 @@ h4{
     background-size: 400%;
 
 }
+#arrowright:hover{
+    left: 82vw;
+    animation: rightarrowanimate infinite 2s 0.2s ease-in-out;
+}
+#arrowleft:hover{
+    left: 3vw;
+    animation: leftarrowanimate infinite 2s 0.2s ease-in-out;
+}
+@keyframes leftarrowanimate {
+    0%{
+        transform: translateX(0);
+    }
+    50%{
+        transform: translateX(-1vw);
+    }
+}
+@keyframes rightarrowanimate {
+    0%{
+        transform: translateX(0);   
+    }
+    50%{
+        transform: translateX(1vw);
+    }
+}
+
+#russia, #germany, #amerika, #sweden{
+    width: 55vw;
+    height: 70vh;
+    position: absolute;
+    top: 15vh;
+    left: 22.5vw;
+}
+
+#russia {
+    left: 122.5vw;
+}
+#germany{
+    left: 22.5vw;
+}
+#amerika{
+    left: 222.5vw;
+}
+#sweden{
+    left: 322.5vw;
+}
+

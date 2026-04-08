@@ -2,8 +2,8 @@
 /// <reference path="player.js" />
 
 function startscreen(){
-document.getElementById("content").innerHTML = ""
-document.getElementById("content").innerHTML = `
+document.getElementById("main").innerHTML = ""
+document.getElementById("main").innerHTML = `
 <div id="startseite">
             <div id="startseite">
             <video id="background" autoplay muted loop>
@@ -28,25 +28,54 @@ document.getElementById("content").innerHTML = `
         `
 }
 function createplayer(){
-document.getElementById("content").innerHTML = ""
+
     
 }
 function map(){
-document.getElementById("content").innerHTML = ""
+document.getElementById("main").innerHTML = ""
     
 }
 function mission(){
-document.getElementById("content").innerHTML = ""
+document.getElementById("main").innerHTML = ""
     
 }
 function wonMission(){
-document.getElementById("content").innerHTML = ""
+document.getElementById("main").innerHTML = ""
     
 }
 function leaderboard(){
-document.getElementById("content").innerHTML = ""
+document.getElementById("main").innerHTML = ""
     
 }
 function settings(){
     
+}
+
+let currentOffset = 0;
+const elements = document.querySelectorAll(".country");
+
+function rightarrow() {
+  if(currentOffset != -300){
+  currentOffset -= 100;
+
+ 
+  elements.forEach(el => {
+    el.style.transition = "transform 0.5s ease";
+    el.style.transform = `translateX(${currentOffset}vw)`;
+  });
+}else{
+    console.log("error")
+}
+}
+
+function leftarrow() {
+    if(currentOffset != 0){
+  currentOffset += 100;
+  elements.forEach(el => {
+    el.style.transition = "transform 0.5s ease";
+    el.style.transform = `translateX(${currentOffset}vw)`;
+  });
+}else{
+    console.log("error")
+}
 }
