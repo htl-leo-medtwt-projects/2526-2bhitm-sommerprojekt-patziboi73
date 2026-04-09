@@ -14,14 +14,14 @@ document.getElementById("main").innerHTML = `
                 <h2>Defenders</h2>
             </div>
             <div id="tobattle">
-                <h3 id="contentbox" onclick="createplayer()">Battle</h3>
+                <h3 id="contentbox" onclick="createplayer()" style="cursor: pointer;">Battle</h3>
             </div>
             <div id="content">
                 <div id="contentbox">
-                    <h4 onclick="settings()">settings</h4>
+                    <h4 onclick="settings()" style="cursor: pointer;">settings</h4>
                 </div>
                 <div id="contentbox">
-                    <h4 onclick="leaderboard()">leaderboard</h4>
+                    <h4 onclick="leaderboard()" style="cursor: pointer;">leaderboard</h4>
                 </div>
             </div>
         </div>
@@ -36,7 +36,7 @@ document.getElementById("main").innerHTML = `
                 <p>Tornado</p>
                 <img src="imgs/jets/tornado.png" alt="">
             </div>
-            <div id="play" onclick="map()"><h4 style="font-family: wt;">to map</h4></div>
+            <div id="play" onclick="map()" style="cursor: pointer;"><h4 style="font-family: wt;">to map</h4></div>
             <div id="stats"></div>
         </div>
         <div id="russia" class="country">
@@ -45,7 +45,7 @@ document.getElementById("main").innerHTML = `
                 <p>MiG-29</p>
                 <img src="imgs/jets/mig_29.png" alt="">
             </div>
-            <div id="play" onclick="map()"><h4 style="font-family: wt;">to map</h4></div>
+            <div id="play" onclick="map()" style="cursor: pointer;"><h4 style="font-family: wt;">to map</h4></div>
         </div>
         <div id="amerika" class="country">
             <div id="flag"><img src="imgs/amerika.png" alt=""></div>
@@ -53,7 +53,7 @@ document.getElementById("main").innerHTML = `
                 <p>F-16</p>
                 <img src="imgs/jets/f_16.png" alt="">
             </div>
-            <div id="play" onclick="map()"><h4 style="font-family: wt;">to map</h4></div>
+            <div id="play" onclick="map()" style="cursor: pointer;"><h4 style="font-family: wt;">to map</h4></div>
             
 
         </div>
@@ -63,22 +63,22 @@ document.getElementById("main").innerHTML = `
                 <p>Gripen</p>
                 <img src="imgs/jets/gripen.png" alt="">
             </div>
-            <div id="play" onclick="map()"><h4 style="font-family: wt;">to map</h4></div>
+            <div id="play" onclick="map()" style="cursor: pointer;"><h4 style="font-family: wt;">to map</h4></div>
 
         </div>
             <div id="name">
                 <p>pilot: </p>
                 <input type="text" name="" id="nameinp"></div>
             
-        <div id="arrowright" onclick="rightarrow()"></div>
-        <div id="arrowleft" onclick="leftarrow()"></div>
+        <div id="arrowright" onclick="rightarrow()" style="cursor: pointer;"></div>
+        <div id="arrowleft" onclick="leftarrow()" style="cursor: pointer;"></div>
     `
 }
 function map(){
 document.getElementById("main").innerHTML = ""
     document.getElementById("main").innerHTML = `<div onclick="map()" id="worldheader"><h1>choose mission</h1></div>
         <div id="worldmap">
-            <img src="imgs/Unbenannt-5.png" alt="" id="marker"onclick="mission()">
+            <img src="imgs/Unbenannt-5.png" alt="" id="marker"onclick="mission()" style="cursor: pointer;">
         </div>
         `
 }
@@ -101,10 +101,10 @@ document.getElementById("main").innerHTML = `
                 <p>you shot down ... enemies</p>
             </div>
             <div>
-                <button id="button" onclick="startscreen()">
+                <button id="button" onclick="startscreen()" style="cursor: pointer;">
                     <h4>startscreen</h4>
                 </button>
-                <button id="button" onclick="map()">
+                <button id="button" onclick="map()" style="cursor: pointer;">
                     <h4>next level</h4>
                 </button>
             </div>
@@ -121,7 +121,7 @@ document.getElementById("main").innerHTML = `
             <p>2. Player2</p>
             <p>3. Player3</p>
 
-            <button onclick="startscreen()" id="button"><h4>back</h4></button>
+            <button onclick="startscreen()" id="button"><h4>back</h4 style="cursor: pointer;"></button>
         </div>
 
 `

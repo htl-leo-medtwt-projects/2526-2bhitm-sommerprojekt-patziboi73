@@ -33,6 +33,7 @@ h2{
 }
 h3{
     font-size: 12vh;
+    
 }
 h4{
     font-size: 5vh;
@@ -285,7 +286,6 @@ img{
     justify-content: center;
     flex-direction: column;
     text-align: center;
-    gap: 2%;
     opacity: 0;
      transition: 0.5s ease;
 }
@@ -306,6 +306,7 @@ img{
     flex-direction: column;
 
 }
+
 #leaderboard{
     position: absolute;
     top: 10vh;
