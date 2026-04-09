@@ -165,3 +165,5 @@ function won(){
         w = true;
     }
 }
+
+startscreen()
