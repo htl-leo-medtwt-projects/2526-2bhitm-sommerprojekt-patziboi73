@@ -179,3 +179,16 @@ img{
     width: 70%;
     padding: 5%;
 }
+#play{
+    position: absolute;
+    width: 30%;
+    left: 0;
+    top: 70%;
+    display: flex;
+    justify-content: center;
+    padding-top: 8% ;
+    text-align: center;
+}
+#play h4{
+    font-size: 6vh;
+}
