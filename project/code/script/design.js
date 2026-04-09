@@ -132,9 +132,9 @@ function settings(){
 }
 
 let currentOffset = 0;
-const elements = document.querySelectorAll(".country");
 
 function rightarrow() {
+const elements = document.querySelectorAll(".country");
   if(currentOffset != -300){
   currentOffset -= 100;
 
@@ -147,6 +147,7 @@ function rightarrow() {
 }
 
 function leftarrow() {
+const elements = document.querySelectorAll(".country");
     if(currentOffset != 0){
   currentOffset += 100;
   elements.forEach(el => {

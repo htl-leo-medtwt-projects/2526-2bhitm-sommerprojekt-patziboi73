@@ -197,6 +197,7 @@ img{
     justify-content: center;
     padding-top: 8% ;
     text-align: center;
+    transition: ease 0.5s;
 }
 #play h4{
     font-size: 6vh;
@@ -331,4 +332,7 @@ img{
     transform: translateX(-50%);
     height: 10vh;
     top: 80%;
+}
+#play:hover{
+    scale: 1.1;
 }
