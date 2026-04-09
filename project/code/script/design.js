@@ -28,8 +28,51 @@ document.getElementById("main").innerHTML = `
         `
 }
 function createplayer(){
+    document.getElementById("main").innerHTML = ""
+document.getElementById("main").innerHTML = `
+<div id="germany" class="country">
+            <div id="flag"><img src="imgs/germany.webp" alt=""></div>
+            <div id="jetpreview">
+                <p>Tornado</p>
+                <img src="imgs/jets/tornado.png" alt="">
+            </div>
+            <div id="play" onclick="map()"><h4 style="font-family: wt;">to map</h4></div>
+            <div id="stats"></div>
+        </div>
+        <div id="russia" class="country">
+            <div id="flag"><img src="imgs/Flag_of_Russia.svg.webp" alt=""></div>
+            <div id="jetpreview">
+                <p>MiG-29</p>
+                <img src="imgs/jets/mig_29.png" alt="">
+            </div>
+            <div id="play" onclick="map()"><h4 style="font-family: wt;">to map</h4></div>
+        </div>
+        <div id="amerika" class="country">
+            <div id="flag"><img src="imgs/amerika.png" alt=""></div>
+            <div id="jetpreview">
+                <p>F-16</p>
+                <img src="imgs/jets/f_16.png" alt="">
+            </div>
+            <div id="play" onclick="map()"><h4 style="font-family: wt;">to map</h4></div>
+            
 
-    
+        </div>
+        <div id="sweden" class="country">
+            <div id="flag"><img src="imgs/schweden.png" alt=""></div>
+            <div id="jetpreview">
+                <p>Gripen</p>
+                <img src="imgs/jets/gripen.png" alt="">
+            </div>
+            <div id="play" onclick="map()"><h4 style="font-family: wt;">to map</h4></div>
+
+        </div>
+            <div id="name">
+                <p>pilot: </p>
+                <input type="text" name="" id="nameinp"></div>
+            
+        <div id="arrowright" onclick="rightarrow()"></div>
+        <div id="arrowleft" onclick="leftarrow()"></div>
+    `
 }
 function map(){
 document.getElementById("main").innerHTML = ""

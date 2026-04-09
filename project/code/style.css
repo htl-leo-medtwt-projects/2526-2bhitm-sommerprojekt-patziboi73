@@ -178,6 +178,15 @@ img{
     left: 30%;
     width: 70%;
     padding: 5%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 15%;
+}
+#jetpreview p{
+    font-size: 6vh;
+    margin-bottom: 5%;
+    font-family: wt;
 }
 #play{
     position: absolute;
@@ -191,4 +200,66 @@ img{
 }
 #play h4{
     font-size: 6vh;
+}
+#name{
+    position: absolute;
+    top: 2vh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30vw;
+    height: 11vh;
+    background-color: rgba(133, 133, 133, 0.507);
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: rgba(0, 0, 0, 0.5) 4px solid;
+}
+#name p{
+    font-size: 5vh;
+    font-family: wt;
+    position: absolute;
+    left: 5%;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    top: -0.7vh;
+}
+#nameinp{
+    width: 100%;
+    height: 50%;
+    font-size: 5vh;
+    text-align: center;
+    font-family: wt;
+    position: absolute;
+    top: 5.5vh;
+}
+#worldheader{
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 20vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#worldmap{
+    position: absolute;
+    top: 30vh;
+    left: -3%;
+    width: 100%;
+    height: 70%;
+    background-image: url(imgs/world.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+#marker{
+    position: absolute;
+    width: 5vw;
+    left: 25vw;
+    top: 15vh;
+
 }
