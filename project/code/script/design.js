@@ -76,18 +76,49 @@ document.getElementById("main").innerHTML = `
 }
 function map(){
 document.getElementById("main").innerHTML = ""
-    
+    document.getElementById("main").innerHTML = `<div onclick="map()" id="worldheader"><h1>choose mission</h1></div>
+        <div id="worldmap">
+            <img src="imgs/Unbenannt-5.png" alt="" id="marker"onclick="mission()">
+        </div>
+        `
 }
 function mission(){
 document.getElementById("main").innerHTML = ""
     
+document.getElementById("main").innerHTML = `
+    <div id="player"><img src="imgs/Unbenannt-6.png" alt="" id="sprite"></div>
+        <div onclick="won()" id="mission">
+            <p>skip to win screen</p>
+        </div>
+        <div id="winscreen">
+            <div>
+                <h1>you survived</h1>
+            </div>
+            <div>
+                <img src="imgs/jets/tornado.png" alt="">
+            </div>
+            <div>
+                <p>you shot down ... enemies</p>
+            </div>
+            <div>
+                <button id="button" onclick="startscreen()">
+                    <h4>startscreen</h4>
+                </button>
+                <button id="button" onclick="map()">
+                    <h4>next level</h4>
+                </button>
+            </div>
+        </div>
+`
 }
 function wonMission(){
 document.getElementById("main").innerHTML = ""
+document.getElementById("main").innerHTML = ``
     
 }
 function leaderboard(){
 document.getElementById("main").innerHTML = ""
+document.getElementById("main").innerHTML = ``
     
 }
 function settings(){
@@ -118,3 +149,14 @@ function leftarrow() {
   });
 }
 }
+let w = false;
+function won(){
+    if(w == true){
+    document.getElementById("winscreen").style.opacity = "1";
+    w = false;
+    }else{
+        document.getElementById("winscreen").style.opacity = "0";
+        w = true;
+    }
+}
+startscreen()

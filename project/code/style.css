@@ -263,3 +263,45 @@ img{
     top: 15vh;
 
 }
+#player{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 50%;
+    transform: translateX(-50%);
+    width: 5%;
+}
+#winscreen{
+    position: absolute;
+    top: 10vh;
+    left: 10vw;
+    width: 80vw;
+    height: 80vh;
+    background-color: rgba(0, 0, 0, 0.8);
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    gap: 2%;
+    opacity: 0;
+     transition: 0.5s ease;
+}
+#winscreen p{
+    font-size: 7vh;
+    font-family: wt;
+    color: white;
+    -webkit-text-stroke: 1px gray;
+    opacity: 0;
+}
+#button h4{
+    color: black;
+    -webkit-text-stroke: rgba(0, 0, 0, 0.5) 1px;
+}
+#winscreen div{
+    display: flex;
+    gap: 2vh;
+    flex-direction: column;
+
+}
