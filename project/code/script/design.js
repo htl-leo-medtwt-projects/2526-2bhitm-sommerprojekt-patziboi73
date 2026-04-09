@@ -111,14 +111,20 @@ document.getElementById("main").innerHTML = `
         </div>
 `
 }
-function wonMission(){
-document.getElementById("main").innerHTML = ""
-document.getElementById("main").innerHTML = ``
-    
-}
+
 function leaderboard(){
 document.getElementById("main").innerHTML = ""
-document.getElementById("main").innerHTML = ``
+document.getElementById("main").innerHTML = `
+<div id="leaderboard">
+            <h1>Leaderboard</h1>
+            <p>1. Player1</p>
+            <p>2. Player2</p>
+            <p>3. Player3</p>
+
+            <button onclick="startscreen()" id="button"><h4>back</h4></button>
+        </div>
+
+`
     
 }
 function settings(){
@@ -159,4 +165,3 @@ function won(){
         w = true;
     }
 }
-startscreen()
