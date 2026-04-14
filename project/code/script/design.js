@@ -168,3 +168,12 @@ function won(){
 }
 
 startscreen()
+
+
+function marker (){
+    let imgwidth =document.getElementById("worldmap").clientWidth
+    let imgheight =document.getElementById("worldmap").clientHeight
+    let marker = document.getElementById("marker")
+    let markerwidth = marker.clientWidth
+    let markerheight = marker.clientHeight
+}

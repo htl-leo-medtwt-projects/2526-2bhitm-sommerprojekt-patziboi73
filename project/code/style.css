@@ -261,8 +261,8 @@ img{
 #marker{
     position: absolute;
     width: 5vw;
-    left: 25vw;
-    top: 15vh;
+    left: 25%;
+    top: 15%;
 
 }
 #player{
