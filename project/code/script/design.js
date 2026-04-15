@@ -79,8 +79,13 @@ document.getElementById("main").innerHTML = ""
     document.getElementById("main").innerHTML = `<div onclick="map()" id="worldheader"><h1>choose mission</h1></div>
         <div id="worldmap">
             <img src="imgs/Unbenannt-5.png" alt="" id="marker"onclick="mission()" style="cursor: pointer;">
+            <img src="imgs/world.svg" alt="" id="worldmapimg">
         </div>
         `
+    
+    marker()   
+    
+    setTimeout(() => {map()}, 1000) 
 }
 function mission(){
 document.getElementById("main").innerHTML = ""
@@ -171,9 +176,11 @@ startscreen()
 
 
 function marker (){
-    let imgwidth =document.getElementById("worldmap").clientWidth
-    let imgheight =document.getElementById("worldmap").clientHeight
+    let imgwidth =document.getElementById("worldmapimg").clientWidth
+    let imgheight =document.getElementById("worldmapimg").clientHeight
+    let imgoffsetTop = document.getElementById("worldmapimg").offsetTop
+    let imgoffsetLeft = document.getElementById("worldmapimg").offsetLeft
     let marker = document.getElementById("marker")
-    let markerwidth = marker.clientWidth
-    let markerheight = marker.clientHeight
+    marker.style.top = (imgheight/4 + imgoffsetTop) + "px"
+    marker.style.left = (imgwidth/5 + imgoffsetLeft) + "px"
 }
