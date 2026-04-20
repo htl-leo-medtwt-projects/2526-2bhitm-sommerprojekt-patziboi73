@@ -8,28 +8,37 @@ let saves = {
 }
 function saveUs(){
     saves.name = document.getElementById("name").value
-    saves.jet = document.getElementById("f16").value
+    saves.jet = "f16"
+    saves.levelus = true
     map()
 }
-function saveUs(){
+function saveSw(){
     saves.name = document.getElementById("name").value
-    saves.jet = document.getElementById("gripen").value
+    saves.jet = "gripen"
+    saves.levelsw = true
     map()
 }
-function saveUs(){
+function saveRu(){
     saves.name = document.getElementById("name").value
-    saves.jet = document.getElementById("mig29").value
+    saves.jet = "mig29"
+    saves.levelru = true
     map()
 }
-function saveUs(){
+function saveDe(){
     saves.name = document.getElementById("name").value
-    saves.jet = document.getElementById("tornado").value
+    saves.jet = "typhoon"
+    saves.levelde = true
     map()
 }
 
 function america(){
+    if(saves.levelus == false){
     saves.levelus = true
     mission()
+    }else{
+        map()
+    }
+
 }
 function germany(){
     saves.levelde = true
