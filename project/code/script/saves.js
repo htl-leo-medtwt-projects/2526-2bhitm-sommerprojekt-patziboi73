@@ -1,3 +1,10 @@
+
+/// <reference path="design.js"/>
+/// <reference path="player.js" />
+/// <reference path="keybinds.js" />
+
+
+
 let saves = {
     name: "",
     jet: "",

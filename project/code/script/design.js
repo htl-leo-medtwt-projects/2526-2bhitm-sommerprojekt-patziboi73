@@ -89,7 +89,7 @@ function map() {
     markerus()
 
 
-    setTimeout(() => { map() }, 5)
+    setTimeout(() => { map() }, 1000)
 }
 function mission() {
     document.getElementById("main").innerHTML = ""
@@ -196,7 +196,7 @@ function markerus() {
     marker.style.left = (imgwidth / 5 + imgoffsetLeft) + "px"
 
     if (saves.levelus == true) {
-        marker.src = "imgs/marker_gray.jpg"
+        marker.src = "imgs/marker_gray.png"
     }
 }
 
