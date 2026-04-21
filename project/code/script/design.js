@@ -137,7 +137,14 @@ function leaderboard() {
 
 }
 function settings() {
+    document.getElementById("main").innerHTML = ""
+    document.getElementById("main").innerHTML = `
+<div id="leaderboard">
+            <h1>settings</h1>
 
+            <button onclick="startscreen()" id="button"><h4>back</h4 style="cursor: pointer;"></button>
+        </div>
+        `
 }
 
 let currentOffset = 0;
