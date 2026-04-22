@@ -14,27 +14,27 @@ let saves = {
     levelru: false,
 }
 function saveUs(){
-    saves.name = document.getElementById("name").value
     saves.jet = "f16"
     saves.levelus = true
+    saves.name = document.getElementById("nameinp").value
     map()
 }
 function saveSw(){
-    saves.name = document.getElementById("name").value
     saves.jet = "gripen"
     saves.levelsw = true
+    saves.name = document.getElementById("nameinp").value
     map()
 }
 function saveRu(){
-    saves.name = document.getElementById("name").value
     saves.jet = "mig29"
     saves.levelru = true
+    saves.name = document.getElementById("nameinp").value
     map()
 }
 function saveDe(){
-    saves.name = document.getElementById("name").value
     saves.jet = "typhoon"
     saves.levelde = true
+    saves.name = document.getElementById("nameinp").value
     map()
 }
 

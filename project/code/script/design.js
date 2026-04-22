@@ -80,7 +80,7 @@ function map() {
 
     document.getElementById("main").innerHTML = `<div onclick="map()" id="worldheader"><h1>choose mission</h1></div>
         <div id="worldmap">
-            <img src="imgs/marker.png" alt="" id="markerus"onclick="america()" style="cursor: pointer;">
+            <img src="imgs/marker.png" alt="" id="markerus"onclick="america()" class="marker" style="cursor: pointer;">
             <img src="imgs/world.svg" alt="" id="worldmapimg">
         </div>
         `
@@ -88,8 +88,9 @@ function map() {
 
     markerus()
 
-
-    setTimeout(() => { map() }, 1000)
+    if(missionstarted != true){
+    setTimeout(() => { map() }, 1000) 
+}
 }
 function mission() {
     document.getElementById("main").innerHTML = ""
@@ -103,7 +104,7 @@ function mission() {
             <div>
                 <h1>you survived</h1>
             </div>
-            <div>
+            <div id="player">
                 <img src="imgs/jets/tornado.png" alt="">
             </div>
             <div>
@@ -119,6 +120,9 @@ function mission() {
             </div>
         </div>
 `
+gamestarted = true
+gameLoop()
+
 }
 
 function leaderboard() {
@@ -181,6 +185,7 @@ function won() {
         document.getElementById("winscreen").style.opacity = "0";
         w = true;
     }
+    gamestarted = false
 }
 
 startscreen()

@@ -256,7 +256,7 @@ img{
     margin: 0;
     padding: 0;
 }
-#marker{
+.marker{
     position: absolute;
     width: 5vw;
     
