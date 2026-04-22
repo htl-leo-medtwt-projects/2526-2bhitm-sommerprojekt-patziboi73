@@ -76,6 +76,7 @@ function createplayer() {
     `
 }
 function map() {
+        
     document.getElementById("main").innerHTML = ""
 
     document.getElementById("main").innerHTML = `<div onclick="map()" id="worldheader"><h1>choose mission</h1></div>
@@ -88,15 +89,12 @@ function map() {
 
     markerus()
 
-    if(missionstarted != true){
-    setTimeout(() => { map() }, 1000) 
-}
+    
 }
 function mission() {
     document.getElementById("main").innerHTML = ""
 
     document.getElementById("main").innerHTML = `
-    <div id="player"><img src="imgs/Unbenannt-6.png" alt="" id="sprite"></div>
         <div onclick="won()" id="mission">
             <p>skip to win screen</p>
         </div>
@@ -104,7 +102,7 @@ function mission() {
             <div>
                 <h1>you survived</h1>
             </div>
-            <div id="player">
+            <div>
                 <img src="imgs/jets/tornado.png" alt="">
             </div>
             <div>
@@ -120,6 +118,8 @@ function mission() {
             </div>
         </div>
 `
+document.getElementById("player").style.opacity = "1"
+missionstarted = true
 gamestarted = true
 gameLoop()
 

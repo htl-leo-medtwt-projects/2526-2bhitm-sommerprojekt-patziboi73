@@ -16,12 +16,7 @@ let keybinds = {
 let keyup = "w"
 let keydown = "s"
 
-function confirmBinds(){
-keyup = up.value
-keyright = right.value
-keydown = down.value
-keyleft = left.value
-}
+
 
 
 document.onkeydown = keyListenerDown;
