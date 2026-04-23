@@ -15,16 +15,19 @@ let gamestarted = false
 
 let player = document.getElementById("player")
 
+let rotation = 0;
 
 function gameLoop() {
     if (KEY_EVENTS.upArrow) {
-        player.style.rotate += "10deg"
+        rotation += 0.6
+        player.style.rotate = `${rotation}deg`;
     }
     if (KEY_EVENTS.downArrow) {
-        player.style.rotate += "-10deg"
+        rotation -= 1;
+        player.style.rotate = `${rotation}deg`;
     }
     if(gamestarted){
-        setTimeout(() => gameLoop(), 24);
+        setTimeout(gameLoop, 24);
     }
  // async recursion
     

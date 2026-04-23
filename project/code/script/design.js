@@ -185,6 +185,7 @@ function won() {
         document.getElementById("winscreen").style.opacity = "0";
         w = true;
     }
+    document.getElementById("player").style.opacity = "0"
     gamestarted = false
 }
 

@@ -268,9 +268,13 @@ img{
     transform: translateY(-50%);
     left: 50%;
     transform: translateX(-50%);
-    width: 5%;
+    width: 2.5%;
     opacity: 0;
+    overflow: visible;
 }
+#player img{
+    width: 200%;
+}   
 #winscreen{
     position: absolute;
     top: 10vh;
