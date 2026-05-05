@@ -124,6 +124,7 @@ document.getElementById("player").style.opacity = "1"
 document.getElementById("main").style.backgroundImage = "url('imgs/backgroundsky.png')"
 document.getElementById("main").style.backgroundPositionX = "0px"
 document.getElementById("main").style.backgroundPositionY = "0px"
+document.getElementById("ground").style.opacity = "1"
 missionstarted = true
 gamestarted = true
 gameLoop()

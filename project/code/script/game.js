@@ -15,6 +15,7 @@ let gamestarted = false;
 let maxDistance = 10;
 let player = document.getElementById("player");
 let main = document.getElementById("main");
+let ground = document.getElementById("ground");
 
 // Rotation / Movement
 let rotation = 0;
@@ -80,14 +81,15 @@ function gameLoop() {
             y1 -= erdbeschleunigung;
         }
         main.style.backgroundPosition   = `${x1}px ${y1}px`;
-    
+        ground.style.backgroundPositionX = `${x1}px`;
+        ground.style.top = `${y1}px`;
     // Beschleunigung
     if (acceleration < 5 && !turning) {
         acceleration += 0.0005;
     }
     if (acceleration < 10 && !turning) {
         acceleration += 0.05;
-    } else if (acceleration > 0.01) {
+    } else if (acceleration > 0.01 && rotation > 180 && rotation < 360) {
         acceleration /= 1.01;
     }
     
@@ -99,6 +101,7 @@ function gameLoop() {
     turning = false;
 
     // Loop
+
     if (gamestarted) {
         setTimeout(gameLoop, 20);
     }
