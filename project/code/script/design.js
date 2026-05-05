@@ -95,9 +95,11 @@ function mission() {
     document.getElementById("main").innerHTML = ""
 
     document.getElementById("main").innerHTML = `
+        
         <div onclick="won()" id="mission">
             <p>skip to win screen</p>
         </div>
+
         <div id="winscreen">
             <div>
                 <h1>you survived</h1>
@@ -119,6 +121,9 @@ function mission() {
         </div>
 `
 document.getElementById("player").style.opacity = "1"
+document.getElementById("main").style.backgroundImage = "url('imgs/backgroundsky.png')"
+document.getElementById("main").style.backgroundPositionX = "0px"
+document.getElementById("main").style.backgroundPositionY = "0px"
 missionstarted = true
 gamestarted = true
 gameLoop()
@@ -205,4 +210,3 @@ function markerus() {
         marker.src = "imgs/marker_gray.png"
     }
 }
-
