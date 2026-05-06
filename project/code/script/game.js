@@ -11,6 +11,8 @@
 /***********************************
  * GAME LOOP
  **********************************/
+let banditsAmount = 0;
+
 let gamestarted = false;
 let maxDistance = 10;
 let player = document.getElementById("player");
@@ -26,26 +28,25 @@ let x = 0;
 let y = 0;
 
 let rotationHistory = [];
-let delayTicks = 30;
+let delayTicks = 20;
 let x1 = 0;
 let y1 = 0;
-let turntime = 3.5;
-let turntimeintiks = 180 / (turntime * 50);
+let turntime = 0;
 
 let erdbeschleunigung = 0.05; 
 /***********************************
  * GAME LOOP FUNCTION
  **********************************/
 function gameLoop() {
-
+    turntime = 180 / (saves.turntime * 50);
     // INPUT
     if (KEY_EVENTS.upArrow) {
-        rotation += turntimeintiks;
+        rotation += turntime;
         turning = true;
     }
 
     if (KEY_EVENTS.downArrow) {
-        rotation -= turntimeintiks;
+        rotation -= turntime;
         turning = true;
     }
 
@@ -82,14 +83,14 @@ function gameLoop() {
         }
         main.style.backgroundPosition   = `${x1}px ${y1}px`;
         ground.style.backgroundPositionX = `${x1}px`;
-        ground.style.top = `${y1}px`;
+        ground.style.top = `${y1 + 3000}px`;
     // Beschleunigung
     if (acceleration < 5 && !turning) {
         acceleration += 0.0005;
     }
     if (acceleration < 10 && !turning) {
         acceleration += 0.05;
-    } else if (acceleration > 0.01 && rotation > 180 && rotation < 360) {
+    } else if (acceleration > 0.01) {
         acceleration /= 1.01;
     }
     
@@ -99,7 +100,10 @@ function gameLoop() {
     if (acceleration > 20) acceleration = 20;
 
     turning = false;
-
+    if (y1 <= -3000){
+    gamestarted = false;
+    won()
+    }
     // Loop
 
     if (gamestarted) {
