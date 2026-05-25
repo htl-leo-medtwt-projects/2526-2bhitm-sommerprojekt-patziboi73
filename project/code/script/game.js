@@ -32,12 +32,21 @@ let delayTicks = 30;
 let x1 = 0;
 let y1 = 0;
 let turntime = 0;
+let opponentspawnchance = 0
 
 let erdbeschleunigung = 0.05; 
 /***********************************
  * GAME LOOP FUNCTION
  **********************************/
 function gameLoop() {
+ opponentspawnchance = Math.random() * 200 
+ opponentspawnchance = Math.floor(opponentspawnchance)
+
+ if (opponentspawnchance == 32){
+    console.log("true")
+    
+ }
+ 
     try {
         player.style.top = `${window.innerHeight/2 - player.clientHeight/2}px`;
 
@@ -122,7 +131,9 @@ function gameLoop() {
     won()
     }
     // Loop
-
+    if(rotation > 360|| rotation < -360){
+        rotation %= 360
+    }
     if (gamestarted) {
         setTimeout(gameLoop, 20);
     }
