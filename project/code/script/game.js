@@ -12,7 +12,7 @@
  * GAME LOOP
  **********************************/
 let banditsAmount = 0;
-
+let radar = [];
 let gamestarted = false;
 let maxDistance = 10;
 let player = document.getElementById("player");
@@ -28,7 +28,7 @@ let x = 0;
 let y = 0;
 
 let rotationHistory = [];
-let delayTicks = 20;
+let delayTicks = 30;
 let x1 = 0;
 let y1 = 0;
 let turntime = 0;
@@ -38,7 +38,24 @@ let erdbeschleunigung = 0.05;
  * GAME LOOP FUNCTION
  **********************************/
 function gameLoop() {
+    try {
+        player.style.top = `${window.innerHeight/2 - player.clientHeight/2}px`;
+
+    radar = document.getElementsByClassName("radar");
+
+    for (let i = 0; i < radar.length; i++) {
+        radar[i].style.transformOrigin = `${(player.clientWidth / 2) * -1}px 50%`;
+        radar[i].style.height = `${player.clientHeight}px`;
+        radar[i].style.left = `${player.offsetLeft + player.clientWidth}px`;
+        radar[i].style.top = `${player.offsetTop}px`;
+        radar[i].style.transform = `rotate(${rotation + 16 - 2*i}deg)`;
+    }
+
+    }catch (error) {
+
+    }
     turntime = 180 / (saves.turntime * 50);
+    maxDistance = saves.speed;
     // INPUT
     if (KEY_EVENTS.upArrow) {
         rotation += turntime;
@@ -67,8 +84,8 @@ function gameLoop() {
     let rad = usedRotation * Math.PI / 180;
 
     // Bewegung berechnen
-    x = Math.cos(rad) * maxDistance;
-    y = Math.sin(rad) * maxDistance;
+    x = Math.cos(rad) * maxDistance /2;
+    y = Math.sin(rad) * maxDistance /2;
 
     // Background bewegen
     
@@ -86,12 +103,12 @@ function gameLoop() {
         ground.style.top = `${y1 + 3000}px`;
     // Beschleunigung
     if (acceleration < 5 && !turning) {
-        acceleration += 0.0005;
+        acceleration += 0.005;
     }
     if (acceleration < 10 && !turning) {
         acceleration += 0.05;
     } else if (acceleration > 0.01) {
-        acceleration /= 1.01;
+        acceleration /= 1.005;
     }
     
 

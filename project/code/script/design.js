@@ -105,9 +105,24 @@ function mission() {
 
     document.getElementById("main").innerHTML = `
         
-        <div onclick="won()" id="mission">
-            <p>skip to win screen</p>
-        </div>
+        <div class="radar"></div>
+        <div class="radar"></div>
+        <div class="radar"></div>
+        <div class="radar"></div>
+        <div class="radar"></div>
+        <div class="radar"></div>
+        <div class="radar"></div>
+        <div class="radar"></div>
+        <div class="radar"></div>
+        <div class="radar"></div>
+        <div class="radar"></div>
+        <div class="radar"></div>
+        <div class="radar"></div>
+        <div class="radar"></div>
+        <div class="radar"></div>
+        <div class="radar"></div>
+        <div class="radar"></div>
+        <div class="radar"></div>
 
         
 `

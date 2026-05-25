@@ -259,22 +259,20 @@ img{
 .marker{
     position: absolute;
     width: 5vw;
-    
+    z-index: 89237498374982749723894792847983489324729834798;
 
 }
 #player{
     position: absolute;
     top: 50%;
-    transform: translateY(-50%);
     left: 50%;
-    transform: translateX(-50%);
-    width: 2.5%;
+    width: 5%;
     opacity: 0;
     overflow: visible;
     z-index: 323323;
 }
 #player img{
-    width: 200%;
+    width: 100%;
 }   
 #winscreen{
     position: absolute;
@@ -355,4 +353,12 @@ img{
     background-size: cover;
     opacity: 0;
     z-index: 3;
+} 
+.radar{
+    position: absolute;
+    width: 40%;
+    height: 5vh;
+    background-color: rgba(0, 212, 11, 0.151);
+    z-index: 4;
+    transform-origin: -2.5% 50%;
 }
