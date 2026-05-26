@@ -139,7 +139,8 @@ function america(){
         x1 = 0
         rotation = 0
         erdbeschleunigung = 0
-        main.style.backgroundPosition   = `${0}px ${0}px`;
+        main.style.backgroundPosition = `${0}px ${0}px`;
+        banditjets = "american"
     saves.levelus = true
     mission()
     }else{
@@ -153,7 +154,8 @@ function germany(){
         x1 = 0
         rotation = 0
         erdbeschleunigung = 0
-        main.style.backgroundPosition   = `${0}px ${0}px`;
+        main.style.backgroundPosition = `${0}px ${0}px`;
+        banditjets = "german"
     saves.levelde = true
     mission()
     }else{
@@ -167,7 +169,8 @@ function sweden(){
         x1 = 0
         rotation = 0
         erdbeschleunigung = 0
-        main.style.backgroundPosition   = `${0}px ${0}px`;
+        main.style.backgroundPosition = `${0}px ${0}px`;
+        banditjets = "swedish"
     saves.levelsw = true
     mission()
     }else{
@@ -180,7 +183,9 @@ function russia(){
         x1 = 0
         rotation = 0
         erdbeschleunigung = 0
-        main.style.backgroundPosition   = `${0}px ${0}px`;
+        banditjets = "russian"
+        main.style.backgroundPosition = `${0}px ${0}px`;
+        banditjets = "russian"
     saves.levelru = true
     mission()
     }else{

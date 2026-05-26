@@ -19,6 +19,9 @@ let player = document.getElementById("player");
 let main = document.getElementById("main");
 let ground = document.getElementById("ground");
 
+let banditjets = "";
+let banditsspeed;
+
 // Rotation / Movement
 let rotation = 0;
 let acceleration = 1;
@@ -32,21 +35,47 @@ let delayTicks = 30;
 let x1 = 0;
 let y1 = 0;
 let turntime = 0;
-let opponentspawnchance = 0
+let opponents = [];
 
 let erdbeschleunigung = 0.05; 
 /***********************************
  * GAME LOOP FUNCTION
  **********************************/
 function gameLoop() {
- opponentspawnchance = Math.random() * 200 
- opponentspawnchance = Math.floor(opponentspawnchance)
+    if (Math.floor(Math.random()*500) === 1) {
+        banditsAmount++;
+        opponents[banditsAmount - 1] = document.getElementById("main").innerHTML += `<div class="bandit" id="bandit${banditsAmount}"></div>`;
+        if (Math.random() < 0.5) {
+            document.getElementById(`bandit${banditsAmount}`).style.left = `${(Math.random() * window.innerWidth) - window.innerWidth}px`;
+        } else {
+            document.getElementById(`bandit${banditsAmount}`).style.left = `${(Math.random() * window.innerWidth) + window.innerWidth}px`;
+        }   if (Math.random() < 0.5) {
+            document.getElementById(`bandit${banditsAmount}`).style.top = `${(Math.random() * window.innerHeight) - window.innerHeight}px`;
+        } else {
+            document.getElementById(`bandit${banditsAmount}`).style.top = `${(Math.random() * window.innerHeight) + window.innerHeight}px`;
+        }
+        document.getElementById(`bandit${banditsAmount}`).style.top = `${Math.random() * window.innerHeight}px`;
+        document.getElementById(`bandit${banditsAmount}`).style.backgroundImage = `url(imgs/jets/${banditjets}Profile.png)`;
+        //test
 
- if (opponentspawnchance == 32){
-    console.log("true")
-    
- }
- 
+        if (banditjets == "american") {
+            banditsspeed = jets[0].speed;
+        document.getElementById(`bandit${banditsAmount}`).style.backgroundImage = `url(imgs/jets/f16Profile.png)`;
+        }
+        if (banditjets == "german") {
+            banditsspeed = jets[2].speed;
+        document.getElementById(`bandit${banditsAmount}`).style.backgroundImage = `url(imgs/jets/tornadoProfile.png)`;
+        }
+        if (banditjets == "swedish") {
+            banditsspeed = jets[1].speed;
+        document.getElementById(`bandit${banditsAmount}`).style.backgroundImage = `url(imgs/jets/gripenProfile.png)`;
+        }
+        if (banditjets == "russian") {
+            banditsspeed = jets[3].speed;
+        document.getElementById(`bandit${banditsAmount}`).style.backgroundImage = `url(imgs/jets/mig_29Profile.png)`;
+        }
+
+    }
     try {
         player.style.top = `${window.innerHeight/2 - player.clientHeight/2}px`;
 
@@ -78,7 +107,6 @@ function gameLoop() {
 
     // Spieler visuell sofort drehen
     player.style.rotate = `${rotation}deg`;
-
     // 🔥 Rotation speichern
     rotationHistory.push(rotation);
 
@@ -131,9 +159,9 @@ function gameLoop() {
     won()
     }
     // Loop
-    if(rotation > 360|| rotation < -360){
-        rotation %= 360
-    }
+
+
+
     if (gamestarted) {
         setTimeout(gameLoop, 20);
     }
