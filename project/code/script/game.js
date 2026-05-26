@@ -44,16 +44,24 @@ let erdbeschleunigung = 0.05;
 function gameLoop() {
     if (Math.floor(Math.random()*500) === 1) {
         banditsAmount++;
-        opponents[banditsAmount - 1] = document.getElementById("main").innerHTML += `<div class="bandit" id="bandit${banditsAmount}"></div>`;
+        let postop = false
+        let posleft = false
+        document.getElementById("main").innerHTML += `<div class="bandit" id="bandit${banditsAmount}"></div>`;
+        opponents [banditsAmount] =document.getElementById(`bandit${}`)
         if (Math.random() < 0.5) {
             document.getElementById(`bandit${banditsAmount}`).style.left = `${(Math.random() * window.innerWidth) - window.innerWidth}px`;
+            posleft = true
         } else {
             document.getElementById(`bandit${banditsAmount}`).style.left = `${(Math.random() * window.innerWidth) + window.innerWidth}px`;
+            posleft = false
         }   if (Math.random() < 0.5) {
             document.getElementById(`bandit${banditsAmount}`).style.top = `${(Math.random() * window.innerHeight) - window.innerHeight}px`;
+            postop = true
         } else {
             document.getElementById(`bandit${banditsAmount}`).style.top = `${(Math.random() * window.innerHeight) + window.innerHeight}px`;
+            postop = false
         }
+        
         document.getElementById(`bandit${banditsAmount}`).style.top = `${Math.random() * window.innerHeight}px`;
         document.getElementById(`bandit${banditsAmount}`).style.backgroundImage = `url(imgs/jets/${banditjets}Profile.png)`;
         //test
