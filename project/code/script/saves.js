@@ -104,7 +104,6 @@ function saveSw(){
     player.style.top = `${50}%`
     saves.name = document.getElementById("nameinp").value
     sprite.src = "imgs/jets/gripenProfile.png"
-
     map()
 }
 function saveDe(){
@@ -127,7 +126,7 @@ function saveRu(){
     saves.speed = jets[3].speed
     playerwidth.style.width = jets[3].size 
     player.style.left = `${50 - jets[3].size.replace("%", "")/2}%`
-    player.style.top = `${50 }%`
+    player.style.top = `${50}%`
     saves.name = document.getElementById("nameinp").value
     sprite.src = "imgs/jets/mig_29Profile.png"
     map()
@@ -141,6 +140,8 @@ function america(){
         erdbeschleunigung = 0
         main.style.backgroundPosition = `${0}px ${0}px`;
         banditjets = "american"
+        banditjetsname = "f16Profile.png"
+        banditSize = jets[0].size
     saves.levelus = true
     mission()
     }else{
@@ -156,6 +157,8 @@ function germany(){
         erdbeschleunigung = 0
         main.style.backgroundPosition = `${0}px ${0}px`;
         banditjets = "german"
+        banditjetsname = "tornadoProfile.png"
+        banditSize = jets[1].size
     saves.levelde = true
     mission()
     }else{
@@ -171,6 +174,8 @@ function sweden(){
         erdbeschleunigung = 0
         main.style.backgroundPosition = `${0}px ${0}px`;
         banditjets = "swedish"
+        banditjetsname = "gripenProfile.png"
+        banditSize = jets[2].size
     saves.levelsw = true
     mission()
     }else{
@@ -186,6 +191,8 @@ function russia(){
         banditjets = "russian"
         main.style.backgroundPosition = `${0}px ${0}px`;
         banditjets = "russian"
+        banditjetsname = "mig_29Profile.png"
+        banditSize = jets[3].size
     saves.levelru = true
     mission()
     }else{

@@ -362,3 +362,15 @@ img{
     z-index: 4;
     transform-origin: -2.5% 50%;
 }
+.bandit{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 5%;
+    opacity: 1;
+    overflow: visible;
+    z-index: 323323;
+}
+.bandit img{
+    width: 100%;
+}
