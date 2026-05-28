@@ -192,16 +192,16 @@ function leftarrow() {
     }
 }
 let w = false;
-function won() {
+function lost() {
     document.getElementById("main").innerHTML = ""
 
     document.getElementById("main").innerHTML = `
         
         
 
-        <div id="winscreen">
+        <div id="loosingscreen">
             <div>
-                <h1>you survived</h1>
+                <h1>you got shoot down</h1>
             </div>
             <div>
                 <img src="imgs/jets/tornado.png" alt="">

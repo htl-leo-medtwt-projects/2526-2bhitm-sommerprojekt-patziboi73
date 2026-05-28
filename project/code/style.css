@@ -274,7 +274,7 @@ img{
 #player img{
     width: 100%;
 }   
-#winscreen{
+#loosingscreen{
     position: absolute;
     top: 10vh;
     left: 10vw;
@@ -291,7 +291,7 @@ img{
      transition: 0.5s ease;
      z-index: 897498237489327;
 }
-#winscreen p{
+#loosingscreen p{
     font-size: 7vh;
     font-family: wt;
     color: white;
@@ -302,7 +302,7 @@ img{
     color: black;
     -webkit-text-stroke: rgba(0, 0, 0, 0.5) 1px;
 }
-#winscreen div{
+#loosingscreen div{
     display: flex;
     gap: 2vh;
     flex-direction: column;
