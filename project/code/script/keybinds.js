@@ -6,7 +6,9 @@ let KEY_EVENTS = {
 
     upArrow: false,
     downArrow: false,
-    shoot: false
+    shootMissile: false,
+    changelock: false,
+    shootmg: false
 }
 let keybinds = {
     up: document.getElementById("up"),
@@ -16,7 +18,9 @@ let keybinds = {
 
 let keyup = "w"
 let keydown = "s"
-let keyshoot = " "
+let keyshootMissile = " "
+let keychangelock = "t"
+let shoot = "q"
 
 
 
@@ -33,36 +37,37 @@ function keyListenerDown(e) {
         KEY_EVENTS.downArrow = true;
     }
 
-    if (e.key === keyshoot) { // Shoot
-        KEY_EVENTS.shoot = true;
+    if (e.key === keyshootMissile) { // Shoot
+        KEY_EVENTS.shootMissile = true;
+    }
+    if (e.key === changelock) { // change
+        KEY_EVENTS.changelock = true;
+    }
+    if (e.key === shoot) { // change
+        KEY_EVENTS.shootmg = true;
     }
 }
-function keyListenerDown(e) {
-    
-    if (e.key === keyup) { // Up arrow
-        KEY_EVENTS.upArrow = true;
-    }
-    
-    if (e.key === keydown) { // Down arrow
-        KEY_EVENTS.downArrow = true;
-    }
-    if (e.key === keyshoot) { // Shoot
-        KEY_EVENTS.shoot = true;
-    }
-}
+
 function keyListenerUp(e) {
     
     if (e.key === keyup) { // Up arrow
         KEY_EVENTS.upArrow = false;
     }
-    
     if (e.key === keydown) { // Down arrow
         KEY_EVENTS.downArrow = false;
     }
-    if (e.key === keyshoot) { // Shoot
-        KEY_EVENTS.shoot = false;
+    if (e.key === keyshootMissile) { // Shoot
+        KEY_EVENTS.shootMissile = false;
     }
+    if (e.key === changelock) { // changelock
+        KEY_EVENTS.changelock = false;
+    }
+    if (e.key === shoot) { // change
+        KEY_EVENTS.shootmg = true;
+    }
+
 }
+
 
 /**
  * Checks intersection between two html elements

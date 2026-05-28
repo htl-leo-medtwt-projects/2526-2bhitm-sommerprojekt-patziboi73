@@ -49,7 +49,7 @@ let jets = [
     size: "1.868%",
 },
 {
-    name: "mig29",
+    name: "mig_29",
     turntime: 19.8 / 4,
     speed: 23.5,
     missiletype: "IR",

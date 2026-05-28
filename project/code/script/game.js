@@ -141,8 +141,7 @@ function updateBandits(playerVelX, playerVelY) {
         let targetRotation =
             Math.atan2(dy, dx) * 180 / Math.PI;
 
-        let diff =
-            targetRotation - b.rotation;
+        let diff = targetRotation - b.rotation;
 
         while (diff > 180) diff -= 360;
         while (diff < -180) diff += 360;
@@ -152,7 +151,7 @@ function updateBandits(playerVelX, playerVelY) {
 
         b.turning = false;
 
-        if (diff > 2) {
+        if (diff > 20) {
 
             b.rotation += banditTurntime;
 
@@ -205,13 +204,13 @@ function updateBandits(playerVelX, playerVelY) {
 
         let enemyVelX =
             Math.cos(rad) *
-            (b.jet.speed/2) *
+            (b.jet.speed / 2) *
             b.acceleration *
             0.2;
 
         let enemyVelY =
             Math.sin(rad) *
-            (b.jet.speed/2) *
+            (b.jet.speed / 2) *
             b.acceleration *
             0.2;
 
@@ -227,8 +226,34 @@ function updateBandits(playerVelX, playerVelY) {
 }
 
 /***********************************
+ * fire missile
+ ***********************************/
+function fireMissile(lockedopps){
+    document.getElementById("main").createElement("div")
+
+    let bandit = document.createElement("div");
+
+    bandit.classList.add("bandit");
+
+    bandit.id = `bandit${banditsAmount}`;
+
+
+
+
+
+
+}
+
+function shootmg(){
+
+}
+let mgcooldown = 0
+let mgoverheat = 0
+/***********************************
  * GAME LOOP
  ***********************************/
+
+let missilecooldown = false
 function gameLoop() {
 
     iterations++;
@@ -242,12 +267,9 @@ function gameLoop() {
 
     try {
         radarlock = false;
-        player.style.top =
-            `${window.innerHeight / 2
-            - player.clientHeight / 2}px`;
+        player.style.top =`${window.innerHeight / 2 - player.clientHeight / 2}px`;
 
-        radar =
-            document.getElementsByClassName("radar");
+        radar = document.getElementsByClassName("radar");
 
         for (let i = 0; i < radar.length; i++) {
 
@@ -266,19 +288,19 @@ function gameLoop() {
             radar[i].style.transform =
                 `rotate(${rotation + 16 - 2 * i}deg)`;
 
-                for (let j = 0; j < bandits.length; j++) {
-                    if (isColliding(radar[i], bandits[j].el)) {
+            for (let j = 0; j < bandits.length; j++) {
+                if (isColliding(radar[i], bandits[j].el)) {
 
-                        radarlock = true;
-                        console.log("ir locked");
-                        lockedopps.push(j);
-                    }
+                    radarlock = true;
+                    console.log("ir locked");
+                    lockedopps.push(j);
                 }
+            }
         }
 
 
-    } catch (e) {}
-    
+    } catch (e) { }
+
     if (!playerJet) return;
 
     let turntime =
@@ -396,12 +418,32 @@ function gameLoop() {
         lost();
     }
     for (let i = 0; i < bandits.length; i++) {
-    if (isColliding(player, bandits[i].el)) {
+        if (isColliding(player, bandits[i].el)) {
 
-        gamestarted = false;
+            gamestarted = false;
 
-        lost();
+            lost();
+        }
     }
+
+    if(KEY_EVENTS.shootmg && mgoverheat < 100 && mgcooldown == 0){
+        mgoverheat++
+        shootmg()
+    }else if (mgoverheat > 0){
+        mgoverheat--
+        mgcooldown--
+    }
+    if(mgoverheat == 100){
+        mgcooldown = 500
+    }
+    else
+    if(radarlock && KEY_EVENTS.shootMissile && !missilecooldown){
+        missilecooldown = true
+        let cooldownstart = iterations
+        fireMissile(lockedopps)
+    }
+    if(missilecooldown && cooldownstart == iterations+50){
+        missilecooldown = false
     }
     if (gamestarted) {
 
