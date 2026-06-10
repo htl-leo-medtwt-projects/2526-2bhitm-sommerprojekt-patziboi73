@@ -124,6 +124,7 @@ function mission() {
         <div class="radar"></div>
         <div class="radar"></div>
 
+        <div id="mg"></div>
         
 `
 document.getElementById("player").style.opacity = "1"

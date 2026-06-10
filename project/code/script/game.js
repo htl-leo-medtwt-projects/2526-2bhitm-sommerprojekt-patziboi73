@@ -23,6 +23,9 @@ let rotation = 0;
 let acceleration = 1;
 let turning = false;
 
+let mgElement = document.getElementById("mg");
+let mgActive = false;
+
 let x = 0;
 let y = 0;
 
@@ -151,7 +154,7 @@ function updateBandits(playerVelX, playerVelY) {
 
         b.turning = false;
 
-        if (diff > 20) {
+        if (diff > 30) {
 
             b.rotation += banditTurntime;
 
@@ -228,15 +231,17 @@ function updateBandits(playerVelX, playerVelY) {
 /***********************************
  * fire missile
  ***********************************/
+    let missileAmount = 0
 function fireMissile(lockedopps){
-    document.getElementById("main").createElement("div")
+    missileAmount++
 
-    let bandit = document.createElement("div");
+    let missile = document.createElement("div");
 
-    bandit.classList.add("bandit");
+    missile.classList.add("missile");
 
-    bandit.id = `bandit${banditsAmount}`;
+    missile.id = `missile${missileAmount}`;
 
+    main.appendChild(missile)
 
 
 
@@ -245,7 +250,7 @@ function fireMissile(lockedopps){
 }
 
 function shootmg(){
-
+    mgActive = true;
 }
 let mgcooldown = 0
 let mgoverheat = 0
@@ -266,6 +271,9 @@ function gameLoop() {
     }
 
     try {
+        
+            
+
         radarlock = false;
         player.style.top =`${window.innerHeight / 2 - player.clientHeight / 2}px`;
 
@@ -426,17 +434,58 @@ function gameLoop() {
         }
     }
 
-    if(KEY_EVENTS.shootmg && mgoverheat < 100 && mgcooldown == 0){
-        mgoverheat++
-        shootmg()
-    }else if (mgoverheat > 0){
-        mgoverheat--
-        mgcooldown--
+// INPUT → nur Zustand setzen
+if (KEY_EVENTS.shootmg && mgcooldown == 0) {
+    mgActive = true;
+    mgoverheat++;
+} else {
+    mgActive = false;
+}
+
+// MG UPDATE (wie Radar jedes Frame)
+if (mgElement) {
+
+    if (mgActive && mgcooldown == 0) {
+
+        mgElement.style.opacity = "1";
+
+        mgElement.style.transformOrigin =
+            `${(player.clientWidth / 2) * -1}px 50%`;
+
+        mgElement.style.height =
+            `${player.clientHeight / 10}px`;
+
+        mgElement.style.left =
+            `${player.offsetLeft + player.clientWidth}px`;
+
+        mgElement.style.top =
+            `${player.offsetTop + player.clientHeight / 2}px`;
+
+        mgElement.style.transform =
+            `rotate(${rotation}deg)`;
+
+        // COLLISION
+        for (let i = bandits.length - 1; i >= 0; i--) {
+            if (isColliding(mgElement, bandits[i].el)) {
+                bandits[i].el.remove();
+                bandits.splice(i, 1);
+            }
+        }
+
+    } else {
+        mgElement.style.opacity = "0";
     }
-    if(mgoverheat == 100){
-        mgcooldown = 500
-    }
-    else
+}
+
+// OVERHEAT
+if (mgoverheat >= 1000) {
+    mgcooldown = 3000;
+    mgoverheat = 0;
+}
+
+if (mgoverheat > 0 && !mgActive) {
+    mgoverheat--;
+}
     if(radarlock && KEY_EVENTS.shootMissile && !missilecooldown){
         missilecooldown = true
         let cooldownstart = iterations

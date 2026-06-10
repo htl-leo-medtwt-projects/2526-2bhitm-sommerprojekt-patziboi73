@@ -374,3 +374,12 @@ img{
 .bandit img{
     width: 100%;
 }
+#mg{
+    position: absolute;
+    width: 10%;
+    height: 0.5vh;
+    background-color: rgba(226, 128, 0, 0.692);
+    z-index: 4;
+    transform-origin: -2.5% 50%;
+    opacity: 0;
+}

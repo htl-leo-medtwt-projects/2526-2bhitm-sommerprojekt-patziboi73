@@ -40,7 +40,7 @@ function keyListenerDown(e) {
     if (e.key === keyshootMissile) { // Shoot
         KEY_EVENTS.shootMissile = true;
     }
-    if (e.key === changelock) { // change
+    if (e.key === keychangelock) { // change
         KEY_EVENTS.changelock = true;
     }
     if (e.key === shoot) { // change
@@ -59,11 +59,11 @@ function keyListenerUp(e) {
     if (e.key === keyshootMissile) { // Shoot
         KEY_EVENTS.shootMissile = false;
     }
-    if (e.key === changelock) { // changelock
+    if (e.key === keychangelock) { // changelock
         KEY_EVENTS.changelock = false;
     }
     if (e.key === shoot) { // change
-        KEY_EVENTS.shootmg = true;
+        KEY_EVENTS.shootmg = false;
     }
 
 }
