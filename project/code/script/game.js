@@ -13,6 +13,7 @@ let radarlock = false;
 let banditsAmount = 0;
 let radar = [];
 let gamestarted = false;
+let targetRotation = 0;
 
 let player = document.getElementById("player");
 let main = document.getElementById("main");
@@ -248,10 +249,71 @@ function fireMissile(lockedopps){
 
 
 }
+function spawnTracer(x, y, rotation, length) {
 
-function shootmg(){
-    mgActive = true;
+    let tracer = document.createElement("div");
+    tracer.classList.add("tracer");
+
+    main.appendChild(tracer);
+
+    return tracer;
 }
+function updateBeam(rotation) {
+
+    if (!mgBeam) return;
+
+    let playerX = window.innerWidth / 2;
+    let playerY = window.innerHeight / 2 + player.clientHeight/2;
+
+    let maxRange = window.innerWidth * 0.1;
+
+    mgBeam.style.left = playerX + "px";
+    mgBeam.style.top = playerY + "px";
+    mgBeam.style.width = maxRange + "px";
+    mgBeam.style.transform = `rotate(${rotation}deg)`;
+}
+let mgBeam = null;
+function shootmg(allOpps, rotation) {
+
+    let playerX = window.innerWidth / 2;
+    let playerY = window.innerHeight / 2;
+
+    let maxRange = window.innerWidth * 0.1;
+
+    // Beam erstellen falls nicht vorhanden
+    if (!mgBeam) {
+        mgBeam = spawnTracer(playerX, playerY, rotation, maxRange);
+    }
+
+    updateBeam(rotation);
+
+    let rad = rotation * Math.PI / 180;
+
+    let dirX = Math.cos(rad);
+    let dirY = Math.sin(rad);
+
+    for (let i = allOpps.length - 1; i >= 0; i--) {
+
+        let opp = allOpps[i];
+
+        let dx = opp.x - playerX;
+        let dy = opp.y - playerY;
+
+        let dist = Math.sqrt(dx * dx + dy * dy);
+
+        if (dist > maxRange) continue;
+
+        let dot = dx * dirX + dy * dirY;
+        let cross = Math.abs(dx * dirY - dy * dirX);
+
+        if (dot > 0 && cross < 20) {
+
+            opp.el.remove();
+            allOpps.splice(i, 1);
+        }
+    }
+}
+
 let mgcooldown = 0
 let mgoverheat = 0
 /***********************************
@@ -270,44 +332,9 @@ function gameLoop() {
         spawnBandit();
     }
 
-    try {
         
-            
-
-        radarlock = false;
-        player.style.top =`${window.innerHeight / 2 - player.clientHeight / 2}px`;
-
-        radar = document.getElementsByClassName("radar");
-
-        for (let i = 0; i < radar.length; i++) {
-
-            radar[i].style.transformOrigin =
-                `${(player.clientWidth / 2) * -1}px 50%`;
-
-            radar[i].style.height =
-                `${player.clientHeight}px`;
-
-            radar[i].style.left =
-                `${player.offsetLeft + player.clientWidth}px`;
-
-            radar[i].style.top =
-                `${player.offsetTop}px`;
-
-            radar[i].style.transform =
-                `rotate(${rotation + 16 - 2 * i}deg)`;
-
-            for (let j = 0; j < bandits.length; j++) {
-                if (isColliding(radar[i], bandits[j].el)) {
-
-                    radarlock = true;
-                    console.log("ir locked");
-                    lockedopps.push(j);
-                }
-            }
-        }
 
 
-    } catch (e) { }
 
     if (!playerJet) return;
 
@@ -434,74 +461,32 @@ function gameLoop() {
         }
     }
 
-// INPUT → nur Zustand setzen
-if (KEY_EVENTS.shootmg && mgcooldown == 0) {
-    mgActive = true;
-    mgoverheat++;
-} else {
-    mgActive = false;
-}
 
-// MG UPDATE (wie Radar jedes Frame)
-if (mgElement) {
-
-    if (mgActive && mgcooldown == 0) {
-
-        mgElement.style.opacity = "1";
-
-        mgElement.style.transformOrigin =
-            `${(player.clientWidth / 2) * -1}px 50%`;
-
-        mgElement.style.height =
-            `${player.clientHeight / 10}px`;
-
-        mgElement.style.left =
-            `${player.offsetLeft + player.clientWidth}px`;
-
-        mgElement.style.top =
-            `${player.offsetTop + player.clientHeight / 2}px`;
-
-        mgElement.style.transform =
-            `rotate(${rotation}deg)`;
-
-        // COLLISION
-        for (let i = bandits.length - 1; i >= 0; i--) {
-            if (isColliding(mgElement, bandits[i].el)) {
-                bandits[i].el.remove();
-                bandits.splice(i, 1);
-            }
-        }
-
-    } else {
-        mgElement.style.opacity = "0";
+    if(KEY_EVENTS.shootmg ==true){
+        shootmg(bandits, rotation)
     }
-}
+    if (!KEY_EVENTS.shootmg) {
 
-// OVERHEAT
-if (mgoverheat >= 1000) {
-    mgcooldown = 3000;
-    mgoverheat = 0;
-}
+    if (mgBeam) {
+        mgBeam.remove();
+        mgBeam = null;
+    }
 
-if (mgoverheat > 0 && !mgActive) {
-    mgoverheat--;
-}
-    if(radarlock && KEY_EVENTS.shootMissile && !missilecooldown){
-        missilecooldown = true
-        let cooldownstart = iterations
-        fireMissile(lockedopps)
+    
     }
-    if(missilecooldown && cooldownstart == iterations+50){
-        missilecooldown = false
-    }
+    
+        while (rotation > 180) rotation -= 360;
+        while (rotation < -180) rotation += 360;
+
     if (gamestarted) {
 
         setTimeout(gameLoop, 20);
     }
-}
+    
 
+}
 /***********************************
- * START GAME
+ * START GAME+
  ***********************************/
 function startGame() {
 

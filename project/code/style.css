@@ -374,12 +374,11 @@ img{
 .bandit img{
     width: 100%;
 }
-#mg{
+.tracer {
     position: absolute;
-    width: 10%;
-    height: 0.5vh;
-    background-color: rgba(226, 128, 0, 0.692);
-    z-index: 4;
-    transform-origin: -2.5% 50%;
-    opacity: 0;
+    height: 1px;
+    background: yellow;
+    transform-origin: left;
+    pointer-events: none;
+    box-shadow: 0 0 8px orange;
 }
