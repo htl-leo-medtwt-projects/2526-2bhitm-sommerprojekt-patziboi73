@@ -249,6 +249,45 @@ function fireMissile(lockedopps){
 
 
 }
+function IrLock(bandits){
+
+    let playerX = window.innerWidth / 2;
+    let playerY = window.innerHeight / 2;
+
+    let maxRange = window.innerWidth * 0.4;
+
+    // Beam erstellen falls nicht vorhanden
+    
+
+    updateBeam(rotation);
+
+    let rad = rotation * Math.PI / 180;
+
+    let dirX = Math.cos(rad);
+    let dirY = Math.sin(rad);
+
+    for (let i = bandits.length - 1; i >= 0; i--) {
+
+        let opp = bandits[i];
+
+        let dx = opp.x - playerX;
+        let dy = opp.y - playerY;
+
+        let dist = Math.sqrt(dx * dx + dy * dy);
+
+        if (dist > maxRange) continue;
+
+        let dot = dx * dirX + dy * dirY;
+        let cross = Math.abs(dx * dirY - dy * dirX);
+
+        if (dot > 0 && cross < 20) {
+
+            opp.el.remove();
+            allOpps.splice(i, 1);
+        }
+    }
+
+}
 function spawnTracer(x, y, rotation, length) {
 
     let tracer = document.createElement("div");
@@ -474,6 +513,9 @@ function gameLoop() {
 
     
     }
+
+    IrLock(bandits, rotation)
+
     
         while (rotation > 180) rotation -= 360;
         while (rotation < -180) rotation += 360;
