@@ -249,24 +249,17 @@ function fireMissile(lockedopps){
 
 
 }
-function IrLock(bandits){
+function IrLock(bandits) {
 
     let playerX = window.innerWidth / 2;
     let playerY = window.innerHeight / 2;
 
     let maxRange = window.innerWidth * 0.4;
 
-    // Beam erstellen falls nicht vorhanden
-    
+    let closestBandit = null;
+    let closestDistance = Infinity;
 
-    updateBeam(rotation);
-
-    let rad = rotation * Math.PI / 180;
-
-    let dirX = Math.cos(rad);
-    let dirY = Math.sin(rad);
-
-    for (let i = bandits.length - 1; i >= 0; i--) {
+    for (let i = 0; i < bandits.length; i++) {
 
         let opp = bandits[i];
 
@@ -275,18 +268,30 @@ function IrLock(bandits){
 
         let dist = Math.sqrt(dx * dx + dy * dy);
 
+        // Zu weit weg
         if (dist > maxRange) continue;
 
-        let dot = dx * dirX + dy * dirY;
-        let cross = Math.abs(dx * dirY - dy * dirX);
+        let targetRotation =
+            Math.atan2(dy, dx) * 180 / Math.PI;
 
-        if (dot > 0 && cross < 20) {
+        let diff = targetRotation - rotation;
 
-            opp.el.remove();
-            allOpps.splice(i, 1);
+        while (diff > 180) diff -= 360;
+        while (diff < -180) diff += 360;
+
+        // 45° links und rechts vom Flugzeug
+        if (Math.abs(diff) <= 45) {
+
+            if (dist < closestDistance) {
+
+                closestDistance = dist;
+                closestBandit = opp;
+                console.log("new target")
+            }
         }
     }
 
+    return closestBandit;
 }
 function spawnTracer(x, y, rotation, length) {
 
@@ -514,8 +519,10 @@ function gameLoop() {
     
     }
 
-    IrLock(bandits, rotation)
+   let currentlylocked = IrLock(bandits, rotation)
 
+   if(KEY_EVENTS.shootMissile)
+   fireMissile()
     
         while (rotation > 180) rotation -= 360;
         while (rotation < -180) rotation += 360;
