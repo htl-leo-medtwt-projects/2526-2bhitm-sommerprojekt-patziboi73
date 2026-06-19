@@ -382,3 +382,8 @@ img{
     pointer-events: none;
     box-shadow: 0 0 8px orange;
 }
+.missile{
+    width: 2vw;
+    height: 1vh;
+    background-image: url(imgs/AIM-9MArrow.webp);
+}
