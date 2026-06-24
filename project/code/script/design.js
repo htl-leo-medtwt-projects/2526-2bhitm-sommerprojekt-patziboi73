@@ -196,7 +196,7 @@ function lost() {
     document.getElementById("main").innerHTML = ""
     document.getElementById("main").innerHTML = `
         <div id="loosingscreen">
-            <div><h3>you got shoot down</h3></div>
+            <div><h3>you got shot down</h3></div>
             <div><img src="imgs/jets/tornado.png" alt=""></div>
             <div><p>you shot down ${kills} enemies</p></div>
             <div>
