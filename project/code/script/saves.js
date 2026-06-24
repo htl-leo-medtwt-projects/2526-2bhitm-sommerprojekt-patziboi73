@@ -164,103 +164,57 @@ function saveRu(){
 
     map()
 }
+function startMission(level, jet) {
+    clearAllProjectiles();   // NEU – räumt alle Raketen/Flares/Gegner vorheriger Mission
 
-function america(){
+    y1 = 0;
+    x1 = 0;
+    rotation = 0;
+    erdbeschleunigung = 0;
 
-    if(saves.levelus == false){
+    main.style.backgroundPosition = `0px 0px`;
 
-        y1 = 0
-        x1 = 0
+    banditJet = jet;
+    currentLevel = level;
+    kills = 0;
 
-        rotation = 0
-
-        erdbeschleunigung = 0
-
-        main.style.backgroundPosition =
-            `0px 0px`
-
-        banditJet = jets[0]
-
-        saves.levelus = true
-
-        mission()
-
-    } else {
-        map()
-    }
+    mission();
 }
+function america(){ startMission("us", jets[0]); }
+function germany(){ startMission("de", jets[2]); }
+function sweden(){ startMission("sw", jets[1]); }
+function russia(){ startMission("ru", jets[3]); }
 
-function germany(){
+let leaderboardData = JSON.parse(localStorage.getItem("airdefenders_leaderboard")) || {
+    us: [], de: [], sw: [], ru: []
+};
+function clearAllProjectiles() {
+    missiles.forEach(m => m.el.remove());
+    missiles = [];
 
-    if(saves.levelde == false){
+    banditMissiles.forEach(m => m.el.remove());
+    banditMissiles = [];
 
-        y1 = 0
-        x1 = 0
+    flares.forEach(f => f.el.remove());
+    flares = [];
 
-        rotation = 0
+    bandits.forEach(b => b.el.remove());
+    bandits = [];
 
-        erdbeschleunigung = 0
-
-        main.style.backgroundPosition =
-            `0px 0px`
-
-        banditJet = jets[2]
-
-        saves.levelde = true
-
-        mission()
-
-    } else {
-        map()
-    }
+    lockedTarget = null;
+    missileCooldownTicks = 0;
+    flareCooldown = 0;
+    banditsAmount = 0;
+    missileAmount = 0;
+    iterations = 400;
 }
+function saveScore(level, name, kills) {
+    if (!level) return;
+    if (!leaderboardData[level]) leaderboardData[level] = [];
 
-function sweden(){
+    leaderboardData[level].push({ name: name || "Unbekannt", kills: kills });
+    leaderboardData[level].sort((a, b) => b.kills - a.kills);
+    leaderboardData[level] = leaderboardData[level].slice(0, 10);
 
-    if(saves.levelsw == false){
-
-        y1 = 0
-        x1 = 0
-
-        rotation = 0
-
-        erdbeschleunigung = 0
-
-        main.style.backgroundPosition =
-            `0px 0px`
-
-        banditJet = jets[1]
-
-        saves.levelsw = true
-
-        mission()
-
-    } else {
-        map()
-    }
-}
-
-function russia(){
-
-    if(saves.levelru == false){
-
-        y1 = 0
-        x1 = 0
-
-        rotation = 0
-
-        erdbeschleunigung = 0
-
-        main.style.backgroundPosition =
-            `0px 0px`
-
-        banditJet = jets[3]
-
-        saves.levelru = true
-
-        mission()
-
-    } else {
-        map()
-    }
+    localStorage.setItem("airdefenders_leaderboard", JSON.stringify(leaderboardData));
 }

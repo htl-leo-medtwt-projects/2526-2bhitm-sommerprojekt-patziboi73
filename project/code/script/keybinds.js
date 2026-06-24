@@ -3,17 +3,12 @@
  * EVENT EVENTS
  ***********************************/
 let KEY_EVENTS = {
-
     upArrow: false,
     downArrow: false,
     shootMissile: false,
     changelock: false,
-    shootmg: false
-}
-let keybinds = {
-    up: document.getElementById("up"),
-    down: document.getElementById("down"),
-    shoot: document.getElementById("shoot")
+    shootmg: false,
+    flare: false          
 }
 
 let keyup = "w"
@@ -21,14 +16,15 @@ let keydown = "s"
 let keyshootMissile = " "
 let keychangelock = "t"
 let shoot = "q"
-
-
+let keyflare = "f"        
 
 document.onkeydown = keyListenerDown;
 document.onkeyup = keyListenerUp;
 
 function keyListenerDown(e) {
-    
+    if (e.key === keyflare) {
+        KEY_EVENTS.flare = true;
+    }
     if (e.key === keyup) { // Up arrow
         KEY_EVENTS.upArrow = true;
     }
@@ -49,7 +45,9 @@ function keyListenerDown(e) {
 }
 
 function keyListenerUp(e) {
-    
+    if (e.key === keyflare) {
+        KEY_EVENTS.flare = false;
+    }
     if (e.key === keyup) { // Up arrow
         KEY_EVENTS.upArrow = false;
     }

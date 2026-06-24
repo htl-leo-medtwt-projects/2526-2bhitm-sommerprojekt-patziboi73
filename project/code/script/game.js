@@ -9,6 +9,18 @@
 /***********************************
  * GAME VARIABLES
  ***********************************/
+let flares = [];
+let flareCooldown = 0;
+let flarePressed = false;
+
+let missiles = [];
+let banditMissiles = [];
+let lockedTarget = null;
+let kills = 0;
+let currentLevel = null;
+let missileCooldownTicks = 0;
+let changelockPressed = false;
+
 let radarlock = false;
 let banditsAmount = 0;
 let radar = [];
@@ -46,6 +58,46 @@ let lockedopps = [];
 /***********************************
  * BANDIT SPAWN
  ***********************************/
+function deployFlare() {
+    if (flareCooldown > 0) return;
+    flareCooldown = 100; // ~2 Sekunden bei 20ms tick
+
+    let playerX = window.innerWidth / 2;
+    let playerY = window.innerHeight / 2;
+
+    let flare = document.createElement("div");
+    flare.classList.add("flare");
+    main.appendChild(flare);
+
+    flares.push({
+        el: flare,
+        x: playerX,
+        y: playerY,
+        life: 75 // ~1.5 Sekunden Wirkdauer
+    });
+}
+
+function updateFlares(playerVelX, playerVelY) {
+    for (let i = flares.length - 1; i >= 0; i--) {
+        let f = flares[i];
+
+        // Flares treiben relativ zum Spieler weg (wie der Hintergrund)
+        f.x -= playerVelX;
+        f.y -= playerVelY;
+        f.y += 2; // sinken leicht
+
+        f.el.style.left = `${f.x}px`;
+        f.el.style.top = `${f.y}px`;
+
+        f.life--;
+
+        if (f.life <= 0) {
+            f.el.remove();
+            flares.splice(i, 1);
+        }
+    }
+}
+
 function spawnBandit() {
 
     if (!banditJet) return;
@@ -105,24 +157,17 @@ function spawnBandit() {
     bandit.style.top = `${spawnY}px`;
 
     bandits.push({
-
-        el: bandit,
-
-        jet: banditJet,
-
-        x: spawnX,
-        y: spawnY,
-
-        rotation: 0,
-
-        acceleration: 1,
-
-        turning: false,
-
-        rotationHistory: [],
-
-        usedRotation: 0
-    });
+    el: bandit,
+    jet: banditJet,
+    x: spawnX,
+    y: spawnY,
+    rotation: 0,
+    acceleration: 1,
+    turning: false,
+    rotationHistory: [],
+    usedRotation: 0,
+    missileCooldown: Math.random() * 100 + 60   // NEU
+});
 }
 
 let iterations = 400;
@@ -226,6 +271,14 @@ function updateBandits(playerVelX, playerVelY) {
 
         b.el.style.rotate =
             `${b.rotation}deg`;
+
+        if (b.missileCooldown > 0) b.missileCooldown--;
+
+        let distToPlayer = Math.hypot(dx, dy);
+
+        if (distToPlayer < window.innerWidth * 0.35 && Math.abs(diff) < 20) {
+            fireBanditMissile(b);
+        }
     }
 }
 
@@ -233,21 +286,185 @@ function updateBandits(playerVelX, playerVelY) {
  * fire missile
  ***********************************/
     let missileAmount = 0
-function fireMissile(lockedopps){
-    missileAmount++
+function fireMissile(target) {
+    if (!playerJet || !target || missileCooldownTicks > 0) return;
+
+    missileAmount++;
+    missileCooldownTicks = 40;
 
     let missile = document.createElement("div");
-
     missile.classList.add("missile");
-
     missile.id = `missile${missileAmount}`;
 
-    main.appendChild(missile)
+    let img = document.createElement("img");
+    img.src = "imgs/AIM-9MArrow.webp";
+    missile.appendChild(img);
+    main.appendChild(missile);
 
+    let playerX = window.innerWidth / 2;
+    let playerY = window.innerHeight / 2;
 
+    missiles.push({
+        el: missile,
+        x: playerX,
+        y: playerY,
+        rotation: rotation,
+        target: target,
+        speed: playerJet.missilespeed > 0 ? playerJet.missilespeed : 25,
+        turnrate: playerJet.missileturn > 0 ? playerJet.missileturn : 25,
+        life: (playerJet.missileTime > 0 ? playerJet.missileTime : 30) * 50
+    });
+}
 
+function fireBanditMissile(bandit) {
+    if (bandit.missileCooldown > 0) return;
 
+    bandit.missileCooldown = 80;
 
+    let missile = document.createElement("div");
+    missile.classList.add("missile");
+
+    let img = document.createElement("img");
+    img.src = "imgs/AIM-9MArrow.webp";
+    missile.appendChild(img);
+    main.appendChild(missile);
+
+    banditMissiles.push({
+        el: missile,
+        x: bandit.x,
+        y: bandit.y,
+        rotation: bandit.rotation,
+        speed: bandit.jet.missilespeed > 0 ? bandit.jet.missilespeed : 22,
+        turnrate: bandit.jet.missileturn > 0 ? bandit.jet.missileturn : 20,
+        life: (bandit.jet.missileTime > 0 ? bandit.jet.missileTime : 30) * 50
+    });
+}
+
+// gemeinsame Logik für Spieler- und Gegnerraketen
+function steerMissile(m, targetX, targetY) {
+    let dx = targetX - m.x;
+    let dy = targetY - m.y;
+
+    let targetRotation = Math.atan2(dy, dx) * 180 / Math.PI;
+
+    let diff = targetRotation - m.rotation;
+    while (diff > 180) diff -= 360;
+    while (diff < -180) diff += 360;
+
+    let maxTurn = m.turnrate / 10;
+
+    if (diff > maxTurn) m.rotation += maxTurn;
+    else if (diff < -maxTurn) m.rotation -= maxTurn;
+    else m.rotation = targetRotation;
+
+    let rad = m.rotation * Math.PI / 180;
+
+    m.x += Math.cos(rad) * m.speed;
+    m.y += Math.sin(rad) * m.speed;
+
+    m.el.style.left = `${m.x}px`;
+    m.el.style.top = `${m.y}px`;
+    m.el.style.rotate = `${m.rotation}deg`;
+
+    m.life--;
+}
+
+function updateMissiles() {
+    let playerX = window.innerWidth / 2;
+    let playerY = window.innerHeight / 2;
+
+    // Spielerraketen verfolgen Gegner
+    for (let i = missiles.length - 1; i >= 0; i--) {
+        let m = missiles[i];
+
+        if (!bandits.includes(m.target)) {
+            m.el.remove();
+            missiles.splice(i, 1);
+            continue;
+        }
+
+        steerMissile(m, m.target.x, m.target.y);
+
+        let dist = Math.hypot(m.target.x - m.x, m.target.y - m.y);
+
+        if (dist < 40) {
+            m.target.el.remove();
+            bandits.splice(bandits.indexOf(m.target), 1);
+            kills++;
+            m.el.remove();
+            missiles.splice(i, 1);
+            continue;
+        }
+
+        if (m.life <= 0) {
+            m.el.remove();
+            missiles.splice(i, 1);
+        }
+    }
+
+    // Gegnerraketen verfolgen den Spieler
+    // Gegnerraketen verfolgen den Spieler ODER eine Flare
+    for (let i = banditMissiles.length - 1; i >= 0; i--) {
+        let m = banditMissiles[i];
+
+        let target = { x: playerX, y: playerY };
+
+        if (flares.length > 0) {
+            let nearestFlare = flares.reduce((closest, f) => {
+                let d = Math.hypot(f.x - m.x, f.y - m.y);
+                let dClosest = closest ? Math.hypot(closest.x - m.x, closest.y - m.y) : Infinity;
+                return d < dClosest ? f : closest;
+            }, null);
+
+            let distToFlare = Math.hypot(nearestFlare.x - m.x, nearestFlare.y - m.y);
+            let distToPlayer = Math.hypot(playerX - m.x, playerY - m.y);
+
+            // Flare lenkt ab, wenn sie näher oder ähnlich nah ist
+            if (distToFlare < distToPlayer * 1.3) {
+                target = nearestFlare;
+            }
+        }
+
+        steerMissile(m, target.x, target.y);
+
+        let distToTarget = Math.hypot(target.x - m.x, target.y - m.y);
+
+        if (distToTarget < 40) {
+            m.el.remove();
+            banditMissiles.splice(i, 1);
+
+            if (target === flares.find(f => f === target)) {
+                continue; // Flare getroffen, kein Treffer am Spieler
+            }
+
+            gamestarted = false;
+            lost();
+            return;
+        }
+
+        if (m.life <= 0) {
+            m.el.remove();
+            banditMissiles.splice(i, 1);
+        }
+    }
+}
+
+function cycleLock() {
+    let playerX = window.innerWidth / 2;
+    let playerY = window.innerHeight / 2;
+    let maxRange = window.innerWidth * 0.4;
+
+    let inRange = bandits.filter(b =>
+        Math.hypot(b.x - playerX, b.y - playerY) < maxRange
+    );
+
+    if (inRange.length === 0) {
+        lockedTarget = null;
+        return;
+    }
+
+    let idx = inRange.indexOf(lockedTarget);
+    lockedTarget = inRange[(idx + 1) % inRange.length];
 }
 function IrLock(bandits){
 
@@ -513,9 +730,33 @@ function gameLoop() {
 
     
     }
+    if (missileCooldownTicks > 0) missileCooldownTicks--;
 
-    IrLock(bandits, rotation)
+    if (KEY_EVENTS.changelock && !changelockPressed) {
+        changelockPressed = true;
+        cycleLock();
+    } else if (!KEY_EVENTS.changelock) {
+        changelockPressed = false;
+    }
 
+    bandits.forEach(b => b.el.classList.remove("locked"));
+    if (lockedTarget) lockedTarget.el.classList.add("locked");
+
+    if (KEY_EVENTS.shootMissile) {
+        fireMissile(lockedTarget);
+    }
+
+    updateMissiles();
+    if (flareCooldown > 0) flareCooldown--;
+
+    if (KEY_EVENTS.flare && !flarePressed) {
+        flarePressed = true;
+        deployFlare();
+    } else if (!KEY_EVENTS.flare) {
+        flarePressed = false;
+    }
+
+    updateFlares(playerVelX, playerVelY);
     
         while (rotation > 180) rotation -= 360;
         while (rotation < -180) rotation += 360;

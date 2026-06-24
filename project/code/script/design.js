@@ -29,6 +29,8 @@ function startscreen() {
         `
         document.getElementById("ground").style.opacity = "0"
         document.getElementById("player").style.opacity = "0"
+        document.getElementById("ground").style.zIndex = "0"
+        document.getElementById("ground").style.pointerEvents = "none"
 }
 function createplayer() {
     document.getElementById("main").innerHTML = ""
@@ -108,6 +110,8 @@ function mission() {
         
         
 `
+document.getElementById("ground").style.zIndex = "3"
+document.getElementById("ground").style.pointerEvents = "auto"
 document.getElementById("player").style.opacity = "1"
 document.getElementById("main").style.backgroundImage = "url('imgs/backgroundsky.png')"
 document.getElementById("main").style.backgroundPositionX = "0px"
@@ -120,22 +124,33 @@ gameLoop()
 }
 
 function leaderboard() {
-    document.getElementById("main").innerHTML = ""
+    let levels = { us: "USA", de: "Germany", sw: "Sweden", ru: "Russia" };
+    let html = "";
+
+    for (let key in levels) {
+        html += `<p style="font-size:5vh;">${levels[key]}</p>`;
+
+        let entries = leaderboardData[key] || [];
+
+        if (entries.length === 0) {
+            html += `<p style="font-size:3vh;">noch keine Einträge</p>`;
+        } else {
+            entries.forEach((entry, i) => {
+                html += `<p style="font-size:3vh;">${i + 1}. ${entry.name} – ${entry.kills} Abschüsse</p>`;
+            });
+        }
+    }
+
     document.getElementById("main").innerHTML = `
-<div id="leaderboard">
+        <div id="leaderboard" style="overflow-y:auto; padding: 2vh;">
             <h1>Leaderboard</h1>
-            <p>1. Player1</p>
-            <p>2. Player2</p>
-            <p>3. Player3</p>
-
-            <button onclick="startscreen()" id="button"><h4>back</h4 style="cursor: pointer;"></button>
+            ${html}
+            <button onclick="startscreen()" id="button"><h4>back</h4></button>
         </div>
+    `
 
-`
-
-        document.getElementById("ground").style.opacity = "0"
-        document.getElementById("player").style.opacity = "0"
-
+    document.getElementById("ground").style.opacity = "0"
+    document.getElementById("player").style.opacity = "0"
 }
 function settings() {
     document.getElementById("main").innerHTML = ""
@@ -175,33 +190,24 @@ function leftarrow() {
 }
 let w = false;
 function lost() {
+    saveScore(currentLevel, saves.name, kills);
+    if (currentLevel) saves["level" + currentLevel] = true;
+
     document.getElementById("main").innerHTML = ""
-
     document.getElementById("main").innerHTML = `
-        
-        
-
         <div id="loosingscreen">
+            <div><h3>you got shoot down</h3></div>
+            <div><img src="imgs/jets/tornado.png" alt=""></div>
+            <div><p>you shot down ${kills} enemies</p></div>
             <div>
-                <h1>you got shoot down</h1>
-            </div>
-            <div>
-                <img src="imgs/jets/tornado.png" alt="">
-            </div>
-            <div>
-                <p>you shot down ... enemies</p>
-            </div>
-            <div>
-                <button id="button" onclick="startscreen()" style="cursor: pointer;">
-                    <h4>startscreen</h4>
-                </button>
-                <button id="button" onclick="map()" style="cursor: pointer;">
-                    <h4>next level</h4>
-                </button>
+                <button id="button" onclick="startscreen()" style="cursor: pointer;"><h4>startscreen</h4></button>
+                <button id="button" onclick="map()" style="cursor: pointer;"><h4>next level</h4></button>
             </div>
         </div>
-`
+    `
     gamestarted = false
+    
+    document.getElementById("ground").style.zIndex = "0"
 }
 
 startscreen()
@@ -216,9 +222,7 @@ function markerus() {
     marker.style.top = (imgheight / 4 + imgoffsetTop) + "px"
     marker.style.left = (imgwidth / 5 + imgoffsetLeft) + "px"
 
-    if (saves.levelus == true) {
-        marker.src = "imgs/marker_gray.png"
-    }
+    
 }
 function markerde() {
     let imgwidth = document.getElementById("worldmapimg").clientWidth
@@ -229,9 +233,7 @@ function markerde() {
     marker.style.top = (imgheight / 6.9 + imgoffsetTop) + "px"
     marker.style.left = (imgwidth / 2.02 + imgoffsetLeft) + "px"
 
-    if (saves.levelde == true) {
-        marker.src = "imgs/marker_gray.png"
-    }
+   
 }
 function markersw() {
     let imgwidth = document.getElementById("worldmapimg").clientWidth
@@ -242,9 +244,7 @@ function markersw() {
     marker.style.top = (imgheight / 11 + imgoffsetTop) + "px"
     marker.style.left = (imgwidth / 2 + imgoffsetLeft) + "px"
 
-    if (saves.levelsw == true) {
-        marker.src = "imgs/marker_gray.png"
-    }
+    
 }
 function markerru() {
     let imgwidth = document.getElementById("worldmapimg").clientWidth
@@ -255,7 +255,5 @@ function markerru() {
     marker.style.top = (imgheight / 10 + imgoffsetTop) + "px"
     marker.style.left = (imgwidth / 1.5 + imgoffsetLeft) + "px"
 
-    if (saves.levelru == true) {
-        marker.src = "imgs/marker_gray.png"
-    }
+    
 }

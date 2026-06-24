@@ -352,7 +352,7 @@ img{
     background-repeat: repeat-x;
     background-size: cover;
     opacity: 0;
-    z-index: 3;
+    z-index:0;
 } 
 .radar{
     position: absolute;
@@ -381,4 +381,24 @@ img{
     transform-origin: left;
     pointer-events: none;
     box-shadow: 0 0 8px orange;
+}
+.missile{
+    position: absolute;
+    width: 1%;
+    z-index: 50000;
+    pointer-events: none;
+}
+.bandit.locked{
+    outline: 3px solid red;
+    border-radius: 50%;
+}
+.flare{
+    position: absolute;
+    width: 1.5%;
+    height: 1.5%;
+    background: radial-gradient(circle, #fff8d0, #ffae00, transparent);
+    border-radius: 50%;
+    z-index: 49999;
+    pointer-events: none;
+    box-shadow: 0 0 15px 5px orange;
 }
