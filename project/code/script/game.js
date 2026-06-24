@@ -31,6 +31,7 @@ let player = document.getElementById("player");
 let main = document.getElementById("main");
 let ground = document.getElementById("ground");
 
+let missiles = [];
 // PLAYER
 let rotation = 0;
 let acceleration = 1;
@@ -286,16 +287,25 @@ function updateBandits(playerVelX, playerVelY) {
  * fire missile
  ***********************************/
     let missileAmount = 0
+<<<<<<< HEAD
 function fireMissile(target) {
     if (!playerJet || !target || missileCooldownTicks > 0) return;
 
     missileAmount++;
     missileCooldownTicks = 40;
+=======
+function fireMissile(lockedopp, startrotation){
+    console.log("missile launched")
+    if (!lockedopp) return;
+
+    missileAmount++;
+>>>>>>> 2c357bfc1e0d00ec21532c3c15c9a8294d82b5ee
 
     let missile = document.createElement("div");
     missile.classList.add("missile");
     missile.id = `missile${missileAmount}`;
 
+<<<<<<< HEAD
     let img = document.createElement("img");
     img.src = "imgs/AIM-9MArrow.webp";
     missile.appendChild(img);
@@ -465,25 +475,131 @@ function cycleLock() {
 
     let idx = inRange.indexOf(lockedTarget);
     lockedTarget = inRange[(idx + 1) % inRange.length];
+=======
+    main.appendChild(missile);
+
+    missiles.push({
+
+        el: missile,
+
+        target: lockedopp,
+
+        x: window.innerWidth / 2,
+        y: window.innerHeight / 2,
+
+        rotation: startrotation,
+
+        acceleration: 1,
+
+        turning: false,
+
+        rotationHistory: [],
+
+        usedRotation: startrotation
+    });
+>>>>>>> 2c357bfc1e0d00ec21532c3c15c9a8294d82b5ee
 }
-function IrLock(bandits){
+function updateMissiles(playerVelX, playerVelY) {
+
+    for (let i = missiles.length - 1; i >= 0; i--) {
+
+        let m = missiles[i];
+
+        // Ziel zerstört?
+        if (!m.target || !document.body.contains(m.target.el)) {
+
+            m.el.remove();
+            missiles.splice(i, 1);
+            continue;
+        }
+
+        let dx = m.target.x - m.x;
+        let dy = m.target.y - m.y;
+
+        let targetRotation =
+            Math.atan2(dy, dx) * 180 / Math.PI;
+
+        let diff = targetRotation - m.rotation;
+
+        while (diff > 180) diff -= 360;
+        while (diff < -180) diff += 360;
+
+        let missileTurntime = 4;
+
+        m.turning = false;
+
+        if (diff > 2) {
+
+            m.rotation += missileTurntime;
+            m.turning = true;
+        }
+
+        if (diff < -2) {
+
+            m.rotation -= missileTurntime;
+            m.turning = true;
+        }
+
+        // gleiche Trägheit wie Bandits
+        m.rotationHistory.push(m.rotation);
+
+        let usedRotation = m.rotation;
+
+        if (m.rotationHistory.length > delayTicks) {
+
+            usedRotation =
+                m.rotationHistory.shift();
+        }
+
+        let rad = usedRotation * Math.PI / 180;
+
+        // Beschleunigung
+        if (m.acceleration < 20) {
+
+            m.acceleration += 0.2;
+        }
+
+        let velX =
+            Math.cos(rad) *
+            m.acceleration;
+
+        let velY =
+            Math.sin(rad) *
+            m.acceleration;
+
+        m.x += velX - playerVelX;
+        m.y += velY - playerVelY;
+
+        m.el.style.left = `${m.x}px`;
+        m.el.style.top = `${m.y}px`;
+        m.el.style.rotate = `${m.rotation}deg`;
+
+        // Treffer
+        if (isColliding(m.el, m.target.el)) {
+
+            m.target.el.remove();
+
+            let index = bandits.indexOf(m.target);
+
+            if (index !== -1)
+                bandits.splice(index, 1);
+
+            m.el.remove();
+            missiles.splice(i, 1);
+        }
+    }
+}
+function IrLock(bandits) {
 
     let playerX = window.innerWidth / 2;
     let playerY = window.innerHeight / 2;
 
     let maxRange = window.innerWidth * 0.4;
 
-    // Beam erstellen falls nicht vorhanden
-    
+    let closestBandit = null;
+    let closestDistance = Infinity;
 
-    updateBeam(rotation);
-
-    let rad = rotation * Math.PI / 180;
-
-    let dirX = Math.cos(rad);
-    let dirY = Math.sin(rad);
-
-    for (let i = bandits.length - 1; i >= 0; i--) {
+    for (let i = 0; i < bandits.length; i++) {
 
         let opp = bandits[i];
 
@@ -492,18 +608,30 @@ function IrLock(bandits){
 
         let dist = Math.sqrt(dx * dx + dy * dy);
 
+        // Zu weit weg
         if (dist > maxRange) continue;
 
-        let dot = dx * dirX + dy * dirY;
-        let cross = Math.abs(dx * dirY - dy * dirX);
+        let targetRotation =
+            Math.atan2(dy, dx) * 180 / Math.PI;
 
-        if (dot > 0 && cross < 20) {
+        let diff = targetRotation - rotation;
 
-            opp.el.remove();
-            allOpps.splice(i, 1);
+        while (diff > 180) diff -= 360;
+        while (diff < -180) diff += 360;
+
+        // 45° links und rechts vom Flugzeug
+        if (Math.abs(diff) <= 45) {
+
+            if (dist < closestDistance) {
+
+                closestDistance = dist;
+                closestBandit = opp;
+                console.log("new target")
+            }
         }
     }
 
+    return closestBandit;
 }
 function spawnTracer(x, y, rotation, length) {
 
@@ -732,6 +860,7 @@ function gameLoop() {
     }
     if (missileCooldownTicks > 0) missileCooldownTicks--;
 
+<<<<<<< HEAD
     if (KEY_EVENTS.changelock && !changelockPressed) {
         changelockPressed = true;
         cycleLock();
@@ -758,9 +887,27 @@ function gameLoop() {
 
     updateFlares(playerVelX, playerVelY);
     
+=======
+   let currentlylocked = IrLock(bandits, rotation)
+if(currentlylocked){
+   if(KEY_EVENTS.shootMissile && !missilecooldown){
+
+    fireMissile(currentlylocked, rotation);
+
+    missilecooldown = true;
+
+    setTimeout(() => {
+        missilecooldown = false;
+    }, 1000);
+}
+}
+updateMissiles(
+    playerVelX,
+    playerVelY
+);
+>>>>>>> 2c357bfc1e0d00ec21532c3c15c9a8294d82b5ee
         while (rotation > 180) rotation -= 360;
         while (rotation < -180) rotation += 360;
-
     if (gamestarted) {
 
         setTimeout(gameLoop, 20);

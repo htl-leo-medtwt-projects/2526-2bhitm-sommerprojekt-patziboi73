@@ -383,6 +383,7 @@ img{
     box-shadow: 0 0 8px orange;
 }
 .missile{
+<<<<<<< HEAD
     position: absolute;
     width: 1%;
     z-index: 50000;
@@ -401,4 +402,9 @@ img{
     z-index: 49999;
     pointer-events: none;
     box-shadow: 0 0 15px 5px orange;
+=======
+    width: 2vw;
+    height: 1vh;
+    background-image: url(imgs/AIM-9MArrow.webp);
+>>>>>>> 2c357bfc1e0d00ec21532c3c15c9a8294d82b5ee
 }
